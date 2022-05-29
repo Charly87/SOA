@@ -2,37 +2,41 @@ package com.example.cotizaciondolar;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.example.cotizaciondolar.models.LoginModel;
+import com.example.cotizaciondolar.presenters.LoginPresenter;
 
-import com.example.cotizaciondolar.models.SecondModel;
-import com.example.cotizaciondolar.presenters.SecondPresenter;
-
-public class SecondActivity extends Activity implements SecondActivityContract.View {
+public class LoginActivity extends Activity implements LoginActivityContract.View {
 
     // Defino mis objetos a utilizar
     TextView textView;
 
     // Defino mi presenter
-    SecondActivityContract.Presenter presenter;
+    LoginActivityContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_login);
 
         // Realizo el binding de los objetos del XML a mis objetos en el Activity
         textView = this.findViewById(R.id.textView);
 
-        presenter = new SecondPresenter(this, new SecondModel());
+        presenter = new LoginPresenter(this, new LoginModel());
     }
 
     @Override
     public void setText(String text) {
         textView.setText(text);
+    }
+
+    @Override
+    public void onBackPressed() {
+//        if (shouldAllowBack()) {
+//            super.onBackPressed();
+//        } else {
+//            doSomething();
+//        }
     }
 }

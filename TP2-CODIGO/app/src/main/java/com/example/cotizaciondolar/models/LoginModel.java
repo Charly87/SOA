@@ -1,8 +1,8 @@
 package com.example.cotizaciondolar.models;
 
-import com.example.cotizaciondolar.MainActivityContract;
+import com.example.cotizaciondolar.LoginActivityContract;
 
-public class MainModel implements MainActivityContract.Model {
+public class LoginModel implements LoginActivityContract.Model {
 
     @Override
     public void getNextName(OnEventListener listener) {

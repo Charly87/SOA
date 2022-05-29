@@ -1,6 +1,6 @@
 package com.example.cotizaciondolar;
 
-public interface SecondActivityContract {
+public interface LoginActivityContract {
 
     interface View {
         void setText(String text);
@@ -11,7 +11,7 @@ public interface SecondActivityContract {
         interface OnEventListener {
             void onEvent(String string);
         }
-        void getNextName(SecondActivityContract.Model.OnEventListener listener);
+        void getNextName(LoginActivityContract.Model.OnEventListener listener);
     }
 
     interface Presenter {
