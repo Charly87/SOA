@@ -1,27 +1,31 @@
 package com.example.cotizaciondolar.ui.models;
 
 import com.example.cotizaciondolar.QuotationContract;
+import com.google.gson.annotations.SerializedName;
 
 public class QuotationModel implements QuotationContract.Model {
+    @SerializedName("fecha")
     private final String date;
-    private final String buyPrice;
-    private final String sellPrice;
+    @SerializedName("compra")
+    private final String buy;
+    @SerializedName("venta")
+    private final String sell;
 
-    public QuotationModel(String date, String buyPrice, String sellPrice) {
+    public QuotationModel(String date, String buy, String sell) {
         this.date = date;
-        this.buyPrice = buyPrice;
-        this.sellPrice = sellPrice;
+        this.buy = buy;
+        this.sell = sell;
     }
 
     public String getDate() {
         return date;
     }
 
-    public String getBuyPrice() {
-        return buyPrice;
+    public String getBuy() {
+        return buy;
     }
 
-    public String getSellPrice() {
-        return sellPrice;
+    public String getSell() {
+        return sell;
     }
 }

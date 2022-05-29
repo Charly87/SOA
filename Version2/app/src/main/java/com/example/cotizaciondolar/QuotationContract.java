@@ -8,9 +8,9 @@ public interface QuotationContract {
     interface Model {
         String getDate();
 
-        String getBuyPrice();
+        String getBuy();
 
-        String getSellPrice();
+        String getSell();
     }
 
     interface Presenter {
