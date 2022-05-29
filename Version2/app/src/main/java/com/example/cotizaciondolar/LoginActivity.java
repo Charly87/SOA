@@ -11,6 +11,7 @@ import com.example.cotizaciondolar.ui.models.LoginModel;
 import com.example.cotizaciondolar.ui.presenters.LoginPresenter;
 
 public class LoginActivity extends Activity implements LoginActivityContract.View {
+
     // lo cree como prueba solo para poder pasar al menu principal
     Button btnConfirm;
 
