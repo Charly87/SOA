@@ -10,4 +10,6 @@
     <string name="menu_history">History</string>
     <string name="menu_quotation">Quotation</string>
     <string name="menu_events">Events</string>
+
+    <string name="uri_dolar_argentina">https://api-dolar-argentina.herokuapp.com/api/</string>
 </resources>
