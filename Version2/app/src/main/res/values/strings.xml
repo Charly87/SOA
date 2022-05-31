@@ -12,4 +12,8 @@
     <string name="menu_events">Events</string>
 
     <string name="uri_dolar_argentina">https://api-dolar-argentina.herokuapp.com/api/</string>
+    <string name="spinner_title">Cotizacion</string>
+    <string name="button_oficial_text">oficial</string>
+    <string name="button_blue_text">blue</string>
+    <string name="button_bolsa_text">bolsa</string>
 </resources>

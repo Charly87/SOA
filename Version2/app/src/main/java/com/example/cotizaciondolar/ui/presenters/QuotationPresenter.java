@@ -1,5 +1,8 @@
 package com.example.cotizaciondolar.ui.presenters;
 
+import static com.example.cotizaciondolar.MainActivity.BLUE_BUTTON_ID;
+import static com.example.cotizaciondolar.MainActivity.STOCK_BUTTON_ID;
+
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -16,8 +19,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class QuotationPresenter implements QuotationContract.Presenter {
-    private QuotationContract.View view;
-    private DolarService service;
+    private final QuotationContract.View view;
+    private final DolarService service;
 
     public QuotationPresenter(QuotationContract.View view) {
         this.view = view;
@@ -30,15 +33,30 @@ public class QuotationPresenter implements QuotationContract.Presenter {
     }
 
     @Override
-    public void getDollarBlueQuotation() {
-        Call<QuotationModel> execute = service.getBlueQuotation();
+    public void getDollarQuotation(int checkedId) {
+        Call<QuotationModel> execute;
+        if (checkedId == STOCK_BUTTON_ID) {
+            execute = service.getStockQuotation();
+        } else if (checkedId == BLUE_BUTTON_ID) {
+            execute = service.getBlueQuotation();
+        } else {
+            execute = service.getOfficialQuotation();
+        }
+
         execute.enqueue(new Callback<QuotationModel>() {
             @Override
             public void onResponse(Call<QuotationModel> call, Response<QuotationModel> response) {
+                QuotationModel body = response.body();
+
                 if (response.isSuccessful()) {
-                    view.setQuotation(response.body().getBuy());
+                    // TODO: validar NP
+                    view.setDateText(body.getDate());
+                    view.setPurchaseText(body.getBuy());
+                    view.setSaleText(body.getSell());
                 } else {
-                    view.setQuotation("");
+                    view.setDateText("");
+                    view.setPurchaseText("");
+                    view.setSaleText("");
                 }
             }
 

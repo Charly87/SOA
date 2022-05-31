@@ -2,7 +2,11 @@ package com.example.cotizaciondolar;
 
 public interface QuotationContract {
     interface View {
-        void setQuotation(String quotation);
+        void setDateText(String date);
+
+        void setPurchaseText(String purchase);
+
+        void setSaleText(String sale);
     }
 
     interface Model {
@@ -14,6 +18,6 @@ public interface QuotationContract {
     }
 
     interface Presenter {
-        void getDollarBlueQuotation();
+        void getDollarQuotation(int checkedId);
     }
 }
