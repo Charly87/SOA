@@ -1,4 +1,4 @@
-package com.example.cotizaciondolar;
+package com.example.cotizaciondolar.views;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.cotizaciondolar.ui.models.LoginModel;
-import com.example.cotizaciondolar.ui.presenters.LoginPresenter;
+import com.example.cotizaciondolar.R;
+import com.example.cotizaciondolar.contracts.LoginActivityContract;
+import com.example.cotizaciondolar.models.LoginModel;
+import com.example.cotizaciondolar.presenters.LoginPresenter;
 
 public class LoginActivity extends Activity implements LoginActivityContract.View {
 
@@ -37,7 +39,7 @@ public class LoginActivity extends Activity implements LoginActivityContract.Vie
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
                 ((Activity) LoginActivity.this).startActivity(intent);
             }

@@ -1,8 +1,10 @@
-package com.example.cotizaciondolar;
+package com.example.cotizaciondolar.views;
+
+import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import com.example.cotizaciondolar.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

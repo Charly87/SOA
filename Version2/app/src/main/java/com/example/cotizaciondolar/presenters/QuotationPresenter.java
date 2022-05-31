@@ -1,16 +1,16 @@
-package com.example.cotizaciondolar.ui.presenters;
+package com.example.cotizaciondolar.presenters;
 
-import static com.example.cotizaciondolar.MainActivity.BLUE_BUTTON_ID;
-import static com.example.cotizaciondolar.MainActivity.STOCK_BUTTON_ID;
+import static com.example.cotizaciondolar.views.MainActivity.BLUE_BUTTON_ID;
+import static com.example.cotizaciondolar.views.MainActivity.STOCK_BUTTON_ID;
 
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.cotizaciondolar.DolarService;
-import com.example.cotizaciondolar.QuotationContract;
 import com.example.cotizaciondolar.R;
-import com.example.cotizaciondolar.ui.models.QuotationModel;
+import com.example.cotizaciondolar.contracts.QuotationContract;
+import com.example.cotizaciondolar.models.QuotationModel;
+import com.example.cotizaciondolar.services.DolarService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,10 +49,10 @@ public class QuotationPresenter implements QuotationContract.Presenter {
                 QuotationModel body = response.body();
 
                 if (response.isSuccessful()) {
-                    // TODO: validar NP
+                    // TODO: validar NP + convertir fecha a GMT-3
                     view.setDateText(body.getDate());
-                    view.setPurchaseText(body.getBuy());
-                    view.setSaleText(body.getSell());
+                    view.setPurchaseText(body.getPurchasePrice());
+                    view.setSaleText(body.getSalePrice());
                 } else {
                     view.setDateText("");
                     view.setPurchaseText("");

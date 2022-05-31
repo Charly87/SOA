@@ -1,4 +1,4 @@
-package com.example.cotizaciondolar.ui.quotation;
+package com.example.cotizaciondolar.views;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,12 +8,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.cotizaciondolar.QuotationContract;
 import com.example.cotizaciondolar.R;
+import com.example.cotizaciondolar.contracts.QuotationContract;
 import com.example.cotizaciondolar.databinding.FragmentQuotationBinding;
-import com.example.cotizaciondolar.ui.presenters.QuotationPresenter;
+import com.example.cotizaciondolar.presenters.QuotationPresenter;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
@@ -30,8 +29,6 @@ public class QuotationFragment extends Fragment implements QuotationContract.Vie
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        QuotationViewModel quotationViewModel =
-                new ViewModelProvider(this).get(QuotationViewModel.class);
 
         binding = FragmentQuotationBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -47,18 +44,21 @@ public class QuotationFragment extends Fragment implements QuotationContract.Vie
         stockButton = binding.btnStock;
 
         // Selecciona el boton de cot. oficial
-        buttonToggleGroup.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
-            @Override
-            public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
-                // Solo ejecutamos este metodo cuando el boton esta checked
-                if (isChecked) {
-                    presenter.getDollarQuotation(checkedId);
-                }
-            }
-        });
-        buttonToggleGroup.check(R.id.btn_official);
+        buttonToggleGroup.addOnButtonCheckedListener(
+                new MaterialButtonToggleGroup.OnButtonCheckedListener() {
+                    @Override
+                    public void onButtonChecked(
+                            MaterialButtonToggleGroup group,
+                            int checkedId,
+                            boolean isChecked) {
+                        // Solo ejecutamos este metodo cuando el boton esta checked
+                        if (isChecked) {
+                            presenter.getDollarQuotation(checkedId);
+                        }
+                    }
+                });
 
-        quotationViewModel.getText().observe(getViewLifecycleOwner(), purchaseText::setText);
+        buttonToggleGroup.check(R.id.btn_official);
 
         return root;
     }
@@ -69,6 +69,11 @@ public class QuotationFragment extends Fragment implements QuotationContract.Vie
         binding = null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        buttonToggleGroup.check(R.id.btn_official);
+    }
 
     @Override
     public void setDateText(String date) {

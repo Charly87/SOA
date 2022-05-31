@@ -1,6 +1,6 @@
-package com.example.cotizaciondolar.ui.models;
+package com.example.cotizaciondolar.models;
 
-import com.example.cotizaciondolar.CodeContract;
+import com.example.cotizaciondolar.contracts.CodeContract;
 
 import java.util.Random;
 
@@ -8,8 +8,7 @@ public class CodeModel implements CodeContract.Model {
 
     private String activeCode;
 
-    public CodeModel()
-    {
+    public CodeModel() {
         this.generateNewCode();
     }
 
@@ -22,7 +21,7 @@ public class CodeModel implements CodeContract.Model {
     public String generateNewCode() {
         Random random = new Random();
         int code = random.nextInt(10000);
-        this.activeCode = String.format("%04d", code) ;
+        this.activeCode = String.format("%04d", code);
         return this.activeCode;
     }
 }

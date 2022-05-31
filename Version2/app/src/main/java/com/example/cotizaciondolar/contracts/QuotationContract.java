@@ -1,4 +1,4 @@
-package com.example.cotizaciondolar;
+package com.example.cotizaciondolar.contracts;
 
 public interface QuotationContract {
     interface View {
@@ -12,9 +12,9 @@ public interface QuotationContract {
     interface Model {
         String getDate();
 
-        String getBuy();
+        String getPurchasePrice();
 
-        String getSell();
+        String getSalePrice();
     }
 
     interface Presenter {
