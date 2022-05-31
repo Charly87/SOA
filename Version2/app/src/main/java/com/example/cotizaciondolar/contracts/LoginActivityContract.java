@@ -1,4 +1,4 @@
-package com.example.cotizaciondolar;
+package com.example.cotizaciondolar.contracts;
 
 public interface LoginActivityContract {
 
@@ -11,6 +11,7 @@ public interface LoginActivityContract {
         interface OnEventListener {
             void onEvent(String string);
         }
+
         void getNextName(LoginActivityContract.Model.OnEventListener listener);
     }
 

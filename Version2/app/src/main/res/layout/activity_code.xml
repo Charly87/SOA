@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CodeActivity">
+    tools:context=".views.CodeActivity">
 
     <EditText
         android:id="@+id/txtCode"
@@ -16,6 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
+
     <TextView
         android:id="@+id/lblMessage"
         android:layout_width="150dp"
@@ -23,7 +24,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCode"
-        android:textColor="#ff0000"/>
+        android:textColor="#ff0000" />
+
     <Button
         android:id="@+id/btnConfirm"
         android:text="Aceptar"
@@ -33,6 +35,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCode" />
+
     <Button
         android:id="@+id/btnGenerate"
         android:text="Generar"

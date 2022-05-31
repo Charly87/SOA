@@ -1,16 +1,16 @@
-package com.example.cotizaciondolar.ui.events;
+package com.example.cotizaciondolar.views;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class EventsViewModel extends ViewModel {
+public class HistoryViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public EventsViewModel() {
+    public HistoryViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is events fragment");
+        mText.setValue("This is history fragment");
     }
 
     public LiveData<String> getText() {

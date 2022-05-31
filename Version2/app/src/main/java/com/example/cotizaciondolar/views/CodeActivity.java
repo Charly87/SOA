@@ -1,7 +1,4 @@
-package com.example.cotizaciondolar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
+package com.example.cotizaciondolar.views;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -12,10 +9,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.cotizaciondolar.ui.models.CodeModel;
-import com.example.cotizaciondolar.ui.presenters.CodePresenter;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
-public class CodeActivity extends AppCompatActivity implements CodeContract.View  {
+import com.example.cotizaciondolar.R;
+import com.example.cotizaciondolar.contracts.CodeContract;
+import com.example.cotizaciondolar.models.CodeModel;
+import com.example.cotizaciondolar.presenters.CodePresenter;
+
+public class CodeActivity extends AppCompatActivity implements CodeContract.View {
 
     // Defino mis objetos a utilizar
     Button btnConfirm;
@@ -26,7 +28,7 @@ public class CodeActivity extends AppCompatActivity implements CodeContract.View
     // Defino mi presenter
     CodeContract.Presenter presenter;
 
-//    @Override
+    //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_code);
@@ -50,7 +52,7 @@ public class CodeActivity extends AppCompatActivity implements CodeContract.View
         setContentView(R.layout.activity_code);
 
         // Cons esta línea la primera vez la app solicita permisos para leer SMS, enviar SMS, acceder al numero, etc
-        ActivityCompat.requestPermissions(CodeActivity.this,   new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS}, PackageManager.PERMISSION_GRANTED);
+        ActivityCompat.requestPermissions(CodeActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS}, PackageManager.PERMISSION_GRANTED);
 
         // Realizo el binding de los objetos del XML a mis objetos en el Activity
         btnConfirm = this.findViewById(R.id.btnConfirm);
@@ -67,11 +69,9 @@ public class CodeActivity extends AppCompatActivity implements CodeContract.View
     }
 
     private View.OnClickListener buttonListeners = new View.OnClickListener() {
-        public void onClick(View v)
-        {
+        public void onClick(View v) {
             //Se determina que componente genero un evento
-            switch (v.getId())
-            {
+            switch (v.getId()) {
                 //Si se ocurrio un evento en el boton Confirmar
                 case R.id.btnConfirm:
                     presenter.onConfirmCode();
@@ -81,7 +81,7 @@ public class CodeActivity extends AppCompatActivity implements CodeContract.View
                     presenter.onGenerateNewCode();
                     break;
                 default:
-                    Toast.makeText(getApplicationContext(),"Error en Listener de botones",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Error en Listener de botones", Toast.LENGTH_LONG).show();
             }
         }
     };

@@ -1,4 +1,4 @@
-package com.example.cotizaciondolar.ui.history;
+package com.example.cotizaciondolar.views;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
