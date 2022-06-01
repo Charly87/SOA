@@ -9,7 +9,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52e8a8de-fb6f-4aac-acf7-037a35542731" name="Changes" comment="" />
+    <list default="true" id="52e8a8de-fb6f-4aac-acf7-037a35542731" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2022_21_47__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2022_21_47__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Version2/app/src/main/java/com/example/cotizaciondolar/contracts/LoginActivityContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Version2/app/src/main/java/com/example/cotizaciondolar/contracts/LoginActivityContract.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Version2/app/src/main/java/com/example/cotizaciondolar/presenters/LoginPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Version2/app/src/main/java/com/example/cotizaciondolar/presenters/LoginPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Version2/app/src/main/java/com/example/cotizaciondolar/views/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Version2/app/src/main/java/com/example/cotizaciondolar/views/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Version2/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Version2/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,7 +48,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/layout" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Version2" />
     <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -149,5 +155,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
