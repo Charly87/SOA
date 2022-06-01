@@ -1,6 +1,12 @@
 package com.example.cotizaciondolar.views;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +22,11 @@ import com.example.cotizaciondolar.presenters.QuotationPresenter;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
-public class QuotationFragment extends Fragment implements QuotationContract.View {
+public class QuotationFragment extends Fragment implements
+        QuotationContract.View,
+        SensorEventListener {
+    private static final String TAG = "QuotationFragment";
+
     private MaterialButtonToggleGroup buttonToggleGroup;
     private MaterialButton officialButton;
     private MaterialButton blueButton;
@@ -26,6 +36,10 @@ public class QuotationFragment extends Fragment implements QuotationContract.Vie
     private TextView saleText;
     private FragmentQuotationBinding binding;
     private QuotationContract.Presenter presenter;
+
+    private StringBuilder builder;
+    private float[] history;
+    private String[] direction;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +57,19 @@ public class QuotationFragment extends Fragment implements QuotationContract.Vie
         blueButton = binding.btnBlue;
         stockButton = binding.btnStock;
 
+        SensorManager manager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        Sensor accelerometer = manager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
+        manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
+
+        setListeners();
+        builder = new StringBuilder();
+        history = new float[2];
+        direction = new String[]{"NONE", "NONE"};
+
+        return root;
+    }
+
+    private void setListeners() {
         // Selecciona el boton de cot. oficial
         buttonToggleGroup.addOnButtonCheckedListener(
                 new MaterialButtonToggleGroup.OnButtonCheckedListener() {
@@ -57,10 +84,6 @@ public class QuotationFragment extends Fragment implements QuotationContract.Vie
                         }
                     }
                 });
-
-        buttonToggleGroup.check(R.id.btn_official);
-
-        return root;
     }
 
     @Override
@@ -90,4 +113,44 @@ public class QuotationFragment extends Fragment implements QuotationContract.Vie
         saleText.setText(sale);
     }
 
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        // TODO: usar un thread para que chequee cada x tiempo y chequear umbral
+        float xChange = history[0] - event.values[0];
+//        float yChange = history[1] - event.values[1];
+
+        history[0] = event.values[0];
+//        history[1] = event.values[1];
+
+        if (xChange > 2) {
+            logEvent("RIGHT");
+        } else if (xChange < -2) {
+            logEvent("LEFT");
+        }
+
+//        if (yChange > 2){
+//            direction[1] = "DOWN";
+//        }
+//        else if (yChange < -2){
+//            direction[1] = "UP";
+//        }
+
+//        builder.append(" y: ");
+//        builder.append(direction[1]);
+
+
+    }
+
+    private void logEvent(final String dir) {
+        direction[0] = dir;
+        builder.setLength(0);
+        builder.append("x: ");
+        builder.append(direction[0]);
+        Log.i(TAG, builder.toString());
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
 }
