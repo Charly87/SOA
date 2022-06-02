@@ -30,10 +30,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        OFFICIAL_BUTTON_ID = R.id.btn_official;
-//        BLUE_BUTTON_ID = R.id.btn_blue;
-//        STOCK_BUTTON_ID = R.id.btn_stock;
-
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,8 +46,14 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_history, R.id.nav_quotation)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+
+        NavController navController = Navigation.findNavController(
+                this,
+                R.id.nav_host_fragment_content_main);
+        NavigationUI.setupActionBarWithNavController(
+                this,
+                navController,
+                mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
@@ -64,10 +66,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        NavController navController = Navigation.findNavController(
+                this,
+                R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
     @Override
     public void onBackPressed() {
         // Deshabilitamos que no pueda volver a la pantalla anterior

@@ -1,6 +1,6 @@
-package com.example.cotizaciondolar.models.services;
+package com.example.cotizaciondolar.models.entities;
 
-public class RegisterRequest {
+public class SignUpRequest {
     private String env;
     private String name;
     private String lastname;
@@ -10,7 +10,7 @@ public class RegisterRequest {
     private String commission;
     private String group;
 
-    public RegisterRequest(String name, String lastname, String dni, String email, String password, String commission, String group) {
+    public SignUpRequest(String name, String lastname, String dni, String email, String password, String commission, String group) {
         this.env = "TEST"; // poner varialbe externa en algun lado.
         this.name = name;
         this.lastname = lastname;

@@ -11,22 +11,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DataAccess{
+public class DataAccess {
 
     private Context context;
 
-    public DataAccess(Context context)
-    {
+    public DataAccess(Context context) {
         this.context = context;
     }
 
-    public long insertUserHistory(String username)
-    {
+    public long insertUserHistory(String username) {
         UserHistoryDb dbHelper = new UserHistoryDb(context);
         // Gets the data repository in write mode
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
         Date date = new Date(System.currentTimeMillis());
 
 
@@ -41,8 +39,7 @@ public class DataAccess{
         return idUserHistory;
     }
 
-    public List getAllUserHistory()
-    {
+    public List getAllUserHistory() {
         UserHistoryDb dbHelper = new UserHistoryDb(context);
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -76,12 +73,12 @@ public class DataAccess{
         );
 
         List items = new ArrayList<>();
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             String name = cursor.getString(
                     cursor.getColumnIndexOrThrow(UserHistoryContract.FeedEntry.COLUMN_NAME_USER));
             String date = cursor.getString(
                     cursor.getColumnIndexOrThrow(UserHistoryContract.FeedEntry.COLUMN_NAME_LASTACCESS));
-            items.add("Nombre: " + name + " Fecha: " + date );
+            items.add("Nombre: " + name + " Fecha: " + date);
         }
         cursor.close();
 

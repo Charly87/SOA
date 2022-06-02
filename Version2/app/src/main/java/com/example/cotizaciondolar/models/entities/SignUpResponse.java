@@ -1,8 +1,8 @@
-package com.example.cotizaciondolar.models.services;
+package com.example.cotizaciondolar.models.entities;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RegisterResponse {
+public class SignUpResponse {
     @SerializedName("success")
     private boolean success;
     @SerializedName("env")
@@ -14,7 +14,7 @@ public class RegisterResponse {
     @SerializedName("msg")
     private String msg;
 
-    public RegisterResponse(boolean success, String env, String token, String tokenRefresh, String msg) {
+    public SignUpResponse(boolean success, String env, String token, String tokenRefresh, String msg) {
         this.success = success;
         this.env = env;
         this.token = token;
@@ -29,7 +29,10 @@ public class RegisterResponse {
     public String getEnv() {
         return env;
     }
-    public void setEnv(String env) { this.env = env; }
+
+    public void setEnv(String env) {
+        this.env = env;
+    }
 
     public void setSuccess(boolean success) {
         this.success = success;

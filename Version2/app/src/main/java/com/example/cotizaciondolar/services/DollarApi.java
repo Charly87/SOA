@@ -1,6 +1,6 @@
 package com.example.cotizaciondolar.services;
 
-import com.example.cotizaciondolar.models.QuotationResponse;
+import com.example.cotizaciondolar.models.entities.QuotationResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

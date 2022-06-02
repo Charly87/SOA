@@ -1,4 +1,4 @@
-package com.example.cotizaciondolar.models.services;
+package com.example.cotizaciondolar.models.entities;
 
 public class LoginRequest {
     private String email;

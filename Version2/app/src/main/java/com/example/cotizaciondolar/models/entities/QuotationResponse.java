@@ -1,4 +1,4 @@
-package com.example.cotizaciondolar.models;
+package com.example.cotizaciondolar.models.entities;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -14,13 +14,6 @@ public class QuotationResponse {
         this.date = date;
         this.purchasePrice = purchasePrice;
         this.salePrice = salePrice;
-    }
-
-    public QuotationResponse() {
-        this.date = "";
-        this.purchasePrice = "";
-        this.salePrice = "";
-
     }
 
     public String getDate() {

@@ -1,8 +1,9 @@
 package com.example.cotizaciondolar.services;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class APIClientSOA {
+public class SoaApiClient {
     public static final String BASE_URL = "http://so-unlam.net.ar/api/api/";
     private static Retrofit retrofit = null;
 

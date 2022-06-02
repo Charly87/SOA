@@ -22,19 +22,20 @@
         android:theme="@style/Theme.CotizacionDolar"
         tools:targetApi="31">
         <activity
-            android:name=".views.RegisterActivity"
-            android:exported="false" />
+            android:name=".views.SignUpActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".views.LoginActivity"
-            android:exported="false" />
+            android:exported="true"></activity>
+
         <activity
             android:name=".views.CodeActivity"
             android:exported="true">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".views.MainActivity"
@@ -42,12 +43,6 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.CotizacionDolar.NoActionBar">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <receiver

@@ -1,13 +1,14 @@
 package com.example.cotizaciondolar.services;
 
-import com.example.cotizaciondolar.models.services.EventRequest;
-import com.example.cotizaciondolar.models.services.EventResponse;
-import com.example.cotizaciondolar.models.services.LoginRequest;
-import com.example.cotizaciondolar.models.services.RegisterRequest;
-import com.example.cotizaciondolar.models.services.LoginResponse;
-import com.example.cotizaciondolar.models.services.RegisterResponse;
+import com.example.cotizaciondolar.models.entities.EventRequest;
+import com.example.cotizaciondolar.models.entities.EventResponse;
+import com.example.cotizaciondolar.models.entities.LoginRequest;
+import com.example.cotizaciondolar.models.entities.LoginResponse;
+import com.example.cotizaciondolar.models.entities.SignUpRequest;
+import com.example.cotizaciondolar.models.entities.SignUpResponse;
 
 import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.HeaderMap;
@@ -15,9 +16,9 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
 
-public interface APIInterfaceSOA {
+public interface SoaApi {
     @POST("register")
-    Call<RegisterResponse> postRegister(@Body RegisterRequest request);
+    Call<SignUpResponse> postRegister(@Body SignUpRequest request);
 
     @POST("login")
     Call<LoginResponse> postLogin(@Body LoginRequest request);

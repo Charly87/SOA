@@ -10,7 +10,7 @@ import android.hardware.SensorEventListener;
 
 import com.example.cotizaciondolar.contracts.QuotationContract;
 import com.example.cotizaciondolar.models.QuotationModel;
-import com.example.cotizaciondolar.models.QuotationResponse;
+import com.example.cotizaciondolar.models.entities.QuotationResponse;
 
 public class QuotationPresenter implements
         QuotationContract.Presenter,

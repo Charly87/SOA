@@ -1,8 +1,8 @@
 package com.example.cotizaciondolar.models;
 
-import com.example.cotizaciondolar.contracts.LoginContract;
-import com.example.cotizaciondolar.models.entities.LoginRequest;
-import com.example.cotizaciondolar.models.entities.LoginResponse;
+import com.example.cotizaciondolar.contracts.SignUpContract;
+import com.example.cotizaciondolar.models.entities.SignUpRequest;
+import com.example.cotizaciondolar.models.entities.SignUpResponse;
 import com.example.cotizaciondolar.services.SoaApi;
 import com.example.cotizaciondolar.services.SoaApiClient;
 import com.google.gson.Gson;
@@ -11,19 +11,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginModel implements LoginContract.Model {
+public class SignUpModel implements SignUpContract.Model {
 
     @Override
-    public void validateUser(String email, String password, OnFinishedListener onFinishedListener) {
+    public void signUpUser(SignUpRequest signUpRequest, OnFinishedListener onFinishedListener) {
 
         SoaApi apiService = SoaApiClient.getClient().create(SoaApi.class);
-        LoginRequest request = new LoginRequest(email, password);
-        Call<LoginResponse> call = apiService.postLogin(request);
-        call.enqueue(new Callback<LoginResponse>() {
+        Call<SignUpResponse> call = apiService.postRegister(signUpRequest);
+
+        call.enqueue(new Callback<SignUpResponse>() {
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
                 if (response.isSuccessful()) {
-                    LoginResponse sr = response.body();
+                    SignUpResponse sr = response.body();
 
                     if (sr.isSuccess()) {
                         GlobalSession.authToken = sr.getToken();
@@ -34,13 +34,13 @@ public class LoginModel implements LoginContract.Model {
                         onFinishedListener.onError(sr.getMsg());
                     }
                 } else {
-                    LoginResponse lr = new Gson().fromJson(response.errorBody().charStream(), LoginResponse.class);
+                    SignUpResponse lr = new Gson().fromJson(response.errorBody().charStream(), SignUpResponse.class);
                     onFinishedListener.onError(lr.getMsg());
                 }
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<SignUpResponse> call, Throwable t) {
                 onFinishedListener.onFailure(t);
             }
         });

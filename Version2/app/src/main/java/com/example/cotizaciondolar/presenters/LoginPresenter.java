@@ -2,41 +2,40 @@ package com.example.cotizaciondolar.presenters;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.provider.ContactsContract;
 
 import com.example.cotizaciondolar.DataAccess;
-import com.example.cotizaciondolar.contracts.LoginActivityContract;
+import com.example.cotizaciondolar.contracts.LoginContract;
 import com.example.cotizaciondolar.models.LoginModel;
 import com.example.cotizaciondolar.views.MainActivity;
-import com.example.cotizaciondolar.views.RegisterActivity;
+import com.example.cotizaciondolar.views.SignUpActivity;
 
-import java.util.List;
+public class LoginPresenter implements
+        LoginContract.Presenter,
+        LoginContract.Model.OnFinishedListener {
 
-public class LoginPresenter implements LoginActivityContract.Presenter, LoginActivityContract.Model.OnFinishedListener {
+    private final LoginContract.View view;
+    private final LoginContract.Model model;
 
-    private LoginActivityContract.View view;
-    private LoginActivityContract.Model model;
-
-
-    public LoginPresenter(LoginActivityContract.View mainView) {
+    public LoginPresenter(LoginContract.View mainView) {
         this.view = mainView;
         this.model = new LoginModel();
     }
 
     @Override
-    public void Login() {
-        this.model.ValidateUser(this.view.getUsername(), this.view.getPassword(),this);
+    public void login() {
+        this.model.validateUser(this.view.getUsername(), this.view.getPassword(), this);
     }
 
-    @Override // boton para ir de loggin a registrar
-    public void Regis() {
-        Intent intent = new Intent((Activity) this.view, RegisterActivity.class);
+    // boton para ir de loggin a registrar
+    @Override
+    public void signUp() {
+        Intent intent = new Intent((Activity) this.view, SignUpActivity.class);
         ((Activity) this.view).startActivity(intent);
     }
 
     @Override
     public void onSuccess() {
-        DataAccess dal = new DataAccess(((Activity)this.view));
+        DataAccess dal = new DataAccess(((Activity) this.view));
         dal.insertUserHistory(this.view.getUsername());
 
         Intent intent = new Intent((Activity) this.view, MainActivity.class);
@@ -45,11 +44,11 @@ public class LoginPresenter implements LoginActivityContract.Presenter, LoginAct
 
     @Override
     public void onError(String msg) {
-        this.view.setMessage(msg);
+        this.view.showLongToast(msg);
     }
 
     @Override
     public void onFailure(Throwable t) {
-        this.view.setMessage("Error general");
+        this.view.showLongToast("Error general");
     }
 }

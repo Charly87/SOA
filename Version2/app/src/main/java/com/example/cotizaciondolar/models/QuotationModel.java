@@ -8,6 +8,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.cotizaciondolar.contracts.QuotationContract;
+import com.example.cotizaciondolar.models.entities.QuotationResponse;
 import com.example.cotizaciondolar.services.DollarApi;
 import com.example.cotizaciondolar.services.DollarApiClient;
 

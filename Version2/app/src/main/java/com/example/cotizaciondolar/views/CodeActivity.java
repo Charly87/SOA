@@ -51,8 +51,16 @@ public class CodeActivity extends AppCompatActivity implements CodeContract.View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_code);
 
-        // Cons esta línea la primera vez la app solicita permisos para leer SMS, enviar SMS, acceder al numero, etc
-        ActivityCompat.requestPermissions(CodeActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS}, PackageManager.PERMISSION_GRANTED);
+        // Cons esta línea la primera vez la app solicita permisos para leer SMS,
+        // enviar SMS, acceder al numero, etc
+        ActivityCompat.requestPermissions(
+                CodeActivity.this,
+                new String[]{
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.READ_SMS,
+                        Manifest.permission.RECEIVE_SMS,
+                        Manifest.permission.SEND_SMS},
+                PackageManager.PERMISSION_GRANTED);
 
         // Realizo el binding de los objetos del XML a mis objetos en el Activity
         btnConfirm = this.findViewById(R.id.btnConfirm);
