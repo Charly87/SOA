@@ -4,88 +4,44 @@ import static com.example.cotizaciondolar.views.MainActivity.BLUE_BUTTON_ID;
 import static com.example.cotizaciondolar.views.MainActivity.OFFICIAL_BUTTON_ID;
 import static com.example.cotizaciondolar.views.MainActivity.STOCK_BUTTON_ID;
 
+import android.hardware.Sensor;
 import android.hardware.SensorEvent;
-import android.widget.Toast;
+import android.hardware.SensorEventListener;
 
-import androidx.fragment.app.Fragment;
-
-import com.example.cotizaciondolar.R;
 import com.example.cotizaciondolar.contracts.QuotationContract;
 import com.example.cotizaciondolar.models.QuotationModel;
-import com.example.cotizaciondolar.services.DolarService;
+import com.example.cotizaciondolar.models.QuotationResponse;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-public class QuotationPresenter implements QuotationContract.Presenter {
+public class QuotationPresenter implements
+        QuotationContract.Presenter,
+        QuotationContract.Model.OnFinishedListener,
+        SensorEventListener {
     private final QuotationContract.View view;
-    private final DolarService service;
-    private float lastZValue;
-    private boolean recentlyMoved = false;
+    private final QuotationContract.Model model;
 
-    // Umbral de deteccion de movimiento del eje Z del acelerometro
-    // En 5 detecta movimientos a partir de los 30 grados de diferencia
-    // con la posicion anterior
     private static final int Z_AXIS_THRESHOLD = 5;
+    private boolean recentlyMoved = false;
+    private float lastZValue;
 
     public QuotationPresenter(QuotationContract.View view) {
         this.view = view;
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(((Fragment) view).getResources().getString(R.string.uri_dolar_argentina))
-                .build();
-
-        this.service = retrofit.create(DolarService.class);
+        this.model = new QuotationModel();
     }
 
     @Override
-    public void getDollarQuotation(int checkedId) {
-        Call<QuotationModel> execute;
-        if (checkedId == STOCK_BUTTON_ID) {
-            execute = service.getStockQuotation();
-        } else if (checkedId == BLUE_BUTTON_ID) {
-            execute = service.getBlueQuotation();
-        } else {
-            execute = service.getOfficialQuotation();
+    public void requestDataFromServer(int checkedId, boolean isChecked) {
+        // Solo llama a la API cuando el boton de cotizacion esta presionado
+        if (isChecked) {
+            model.getDollarQuotation(this, checkedId);
         }
-
-        execute.enqueue(new Callback<QuotationModel>() {
-            @Override
-            public void onResponse(Call<QuotationModel> call, Response<QuotationModel> response) {
-                QuotationModel body = response.body();
-
-                if (response.isSuccessful()) {
-                    // TODO: validar NP + convertir fecha a GMT-3
-                    view.setDateText(body.getDate());
-                    view.setPurchaseText(body.getPurchasePrice());
-                    view.setSaleText(body.getSalePrice());
-                } else {
-                    view.setDateText("");
-                    view.setPurchaseText("");
-                    view.setSaleText("");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<QuotationModel> call, Throwable t) {
-                Toast.makeText(
-                        ((Fragment) view).getContext(),
-                        t.getMessage(),
-                        Toast.LENGTH_LONG).show();
-            }
-        });
-
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        // TODO: mover a una clase utils
         float currentZValue = event.values[0];
-        // Solo se tomara como valido un movimiento de hasta 90 grados (valor 9.8 del acelerometro)
-        if (currentZValue > -9.8 && currentZValue < 9.8) {
+
+        // Solo se tomara como valido un movimiento de hasta 90 grados (valor 9.81 del acelerometro)
+        if (currentZValue > -9.81 && currentZValue < 9.81) {
 
             // Si hubo un movimiento no volvera a realizar accion al volver a la posicion normal del celular
             if (recentlyMoved) {
@@ -107,6 +63,11 @@ public class QuotationPresenter implements QuotationContract.Presenter {
                 changeCheckedButton(false);
             }
         }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 
     private void changeCheckedButton(boolean toTheRight) {
@@ -140,5 +101,17 @@ public class QuotationPresenter implements QuotationContract.Presenter {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onFinished(QuotationResponse quotationResponse) {
+        view.setDateText(quotationResponse.getDate());
+        view.setPurchaseText(quotationResponse.getPurchasePrice());
+        view.setSaleText(quotationResponse.getSalePrice());
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+        view.showLongToast(t.getMessage());
     }
 }

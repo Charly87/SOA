@@ -2,7 +2,6 @@ package com.example.cotizaciondolar.views;
 
 import android.content.Context;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -10,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,18 +18,13 @@ import com.example.cotizaciondolar.R;
 import com.example.cotizaciondolar.contracts.QuotationContract;
 import com.example.cotizaciondolar.databinding.FragmentQuotationBinding;
 import com.example.cotizaciondolar.presenters.QuotationPresenter;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
 public class QuotationFragment extends Fragment implements
-        QuotationContract.View,
-        SensorEventListener {
+        QuotationContract.View {
     private static final String TAG = "QuotationFragment";
 
     private MaterialButtonToggleGroup buttonToggleGroup;
-    private MaterialButton officialButton;
-    private MaterialButton blueButton;
-    private MaterialButton stockButton;
     private TextView dateText;
     private TextView purchaseText;
     private TextView saleText;
@@ -48,13 +43,10 @@ public class QuotationFragment extends Fragment implements
         dateText = binding.textDate;
         purchaseText = binding.textPurchase;
         saleText = binding.textSale;
-        officialButton = binding.btnOfficial;
-        blueButton = binding.btnBlue;
-        stockButton = binding.btnStock;
 
         SensorManager manager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         Sensor accelerometer = manager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
-        manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        manager.registerListener((SensorEventListener) presenter, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
         setListeners();
 
@@ -62,18 +54,11 @@ public class QuotationFragment extends Fragment implements
     }
 
     private void setListeners() {
-        // Selecciona el boton de cot. oficial
         buttonToggleGroup.addOnButtonCheckedListener(
                 new MaterialButtonToggleGroup.OnButtonCheckedListener() {
                     @Override
-                    public void onButtonChecked(
-                            MaterialButtonToggleGroup group,
-                            int checkedId,
-                            boolean isChecked) {
-                        // Solo ejecutamos este metodo cuando el boton esta checked
-                        if (isChecked) {
-                            presenter.getDollarQuotation(checkedId);
-                        }
+                    public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
+                        presenter.requestDataFromServer(checkedId, isChecked);
                     }
                 });
     }
@@ -116,12 +101,17 @@ public class QuotationFragment extends Fragment implements
     }
 
     @Override
-    public void onSensorChanged(SensorEvent event) {
-        presenter.onSensorChanged(event);
+    public void showLongToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
+//    @Override
+//    public void onSensorChanged(SensorEvent event) {
+//        presenter.onSensorChanged(event);
+//    }
+//
+//    @Override
+//    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+//
+//    }
 }

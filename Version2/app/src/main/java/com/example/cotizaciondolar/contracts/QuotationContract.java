@@ -2,6 +2,8 @@ package com.example.cotizaciondolar.contracts;
 
 import android.hardware.SensorEvent;
 
+import com.example.cotizaciondolar.models.QuotationResponse;
+
 public interface QuotationContract {
     interface View {
         void setDateText(String date);
@@ -13,18 +15,23 @@ public interface QuotationContract {
         int getCheckedButton();
 
         void setCheckedButton(int buttonId);
+
+        void showLongToast(String message);
     }
 
     interface Model {
-        String getDate();
 
-        String getPurchasePrice();
+        interface OnFinishedListener {
+            void onFinished(QuotationResponse quotationResponse);
 
-        String getSalePrice();
+            void onFailure(Throwable t);
+        }
+
+        void getDollarQuotation(OnFinishedListener onFinishedListener, int checkedId);
     }
 
     interface Presenter {
-        void getDollarQuotation(int checkedId);
+        void requestDataFromServer(int checkedId, boolean isChecked);
 
         void onSensorChanged(SensorEvent event);
     }
