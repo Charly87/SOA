@@ -1,8 +1,11 @@
 package com.example.cotizaciondolar.presenters;
 
 import static com.example.cotizaciondolar.views.MainActivity.BLUE_BUTTON_ID;
+import static com.example.cotizaciondolar.views.MainActivity.OFFICIAL_BUTTON_ID;
 import static com.example.cotizaciondolar.views.MainActivity.STOCK_BUTTON_ID;
 
+import android.hardware.SensorEvent;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +24,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class QuotationPresenter implements QuotationContract.Presenter {
     private final QuotationContract.View view;
     private final DolarService service;
+    private StringBuilder builder;
+    private float lastZValue;
+    private String[] direction;
+
+    private static final int Z_AXIS_TRESHOLD = 2;
 
     public QuotationPresenter(QuotationContract.View view) {
         this.view = view;
@@ -30,6 +38,9 @@ public class QuotationPresenter implements QuotationContract.Presenter {
                 .build();
 
         this.service = retrofit.create(DolarService.class);
+
+        builder = new StringBuilder();
+        direction = new String[]{"NONE", "NONE"};
     }
 
     @Override
@@ -69,5 +80,55 @@ public class QuotationPresenter implements QuotationContract.Presenter {
             }
         });
 
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        // TODO: usar un thread para que chequee cada x tiempo y chequear umbral
+        float currentZValue = event.values[0];
+        float zValueChange = lastZValue - currentZValue;
+
+        lastZValue = currentZValue;
+
+        if (zValueChange > Z_AXIS_TRESHOLD) {
+//            logEvent("RIGHT");
+            changeCheckedButton(false);
+        } else if (zValueChange < -Z_AXIS_TRESHOLD) {
+//            logEvent("LEFT");
+            changeCheckedButton(true);
+        }
+    }
+
+    private void changeCheckedButton(boolean toTheRight) {
+        int checkedButton = view.getCheckedButton();
+
+        switch (checkedButton) {
+            case OFFICIAL_BUTTON_ID:
+                if (toTheRight) {
+                    view.setCheckedButton(BLUE_BUTTON_ID);
+                } else {
+                    view.setCheckedButton(STOCK_BUTTON_ID);
+                }
+            case BLUE_BUTTON_ID:
+                if (toTheRight) {
+                    view.setCheckedButton(STOCK_BUTTON_ID);
+                } else {
+                    view.setCheckedButton(OFFICIAL_BUTTON_ID);
+                }
+            case STOCK_BUTTON_ID:
+                if (toTheRight) {
+                    view.setCheckedButton(OFFICIAL_BUTTON_ID);
+                } else {
+                    view.setCheckedButton(BLUE_BUTTON_ID);
+                }
+        }
+    }
+
+    private void logEvent(final String dir) {
+        direction[0] = dir;
+        builder.setLength(0);
+        builder.append("x: ");
+        builder.append(direction[0]);
+        Log.i("asd", builder.toString());
     }
 }

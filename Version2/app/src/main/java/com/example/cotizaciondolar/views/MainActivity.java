@@ -17,9 +17,9 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
-    public static int OFFICIAL_BUTTON_ID;
-    public static int BLUE_BUTTON_ID;
-    public static int STOCK_BUTTON_ID;
+    public static final int OFFICIAL_BUTTON_ID = R.id.btn_official;
+    public static final int BLUE_BUTTON_ID = R.id.btn_blue;
+    public static final int STOCK_BUTTON_ID = R.id.btn_stock;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        OFFICIAL_BUTTON_ID = R.id.btn_official;
-        BLUE_BUTTON_ID = R.id.btn_blue;
-        STOCK_BUTTON_ID = R.id.btn_stock;
+//        OFFICIAL_BUTTON_ID = R.id.btn_official;
+//        BLUE_BUTTON_ID = R.id.btn_blue;
+//        STOCK_BUTTON_ID = R.id.btn_stock;
 
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {

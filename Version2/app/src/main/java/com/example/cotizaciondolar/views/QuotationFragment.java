@@ -6,7 +6,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,10 +36,6 @@ public class QuotationFragment extends Fragment implements
     private FragmentQuotationBinding binding;
     private QuotationContract.Presenter presenter;
 
-    private StringBuilder builder;
-    private float[] history;
-    private String[] direction;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -59,12 +54,9 @@ public class QuotationFragment extends Fragment implements
 
         SensorManager manager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         Sensor accelerometer = manager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
-        manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
+        manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
 
         setListeners();
-        builder = new StringBuilder();
-        history = new float[2];
-        direction = new String[]{"NONE", "NONE"};
 
         return root;
     }
@@ -114,39 +106,18 @@ public class QuotationFragment extends Fragment implements
     }
 
     @Override
-    public void onSensorChanged(SensorEvent event) {
-        // TODO: usar un thread para que chequee cada x tiempo y chequear umbral
-        float xChange = history[0] - event.values[0];
-//        float yChange = history[1] - event.values[1];
-
-        history[0] = event.values[0];
-//        history[1] = event.values[1];
-
-        if (xChange > 2) {
-            logEvent("RIGHT");
-        } else if (xChange < -2) {
-            logEvent("LEFT");
-        }
-
-//        if (yChange > 2){
-//            direction[1] = "DOWN";
-//        }
-//        else if (yChange < -2){
-//            direction[1] = "UP";
-//        }
-
-//        builder.append(" y: ");
-//        builder.append(direction[1]);
-
-
+    public int getCheckedButton() {
+        return buttonToggleGroup.getCheckedButtonId();
     }
 
-    private void logEvent(final String dir) {
-        direction[0] = dir;
-        builder.setLength(0);
-        builder.append("x: ");
-        builder.append(direction[0]);
-        Log.i(TAG, builder.toString());
+    @Override
+    public void setCheckedButton(int buttonId) {
+        buttonToggleGroup.check(buttonId);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        presenter.onSensorChanged(event);
     }
 
     @Override
