@@ -2,42 +2,29 @@ package com.example.cotizaciondolar.presenters;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.provider.ContactsContract;
 
 import com.example.cotizaciondolar.DataAccess;
 import com.example.cotizaciondolar.contracts.LoginActivityContract;
+import com.example.cotizaciondolar.contracts.RegisterActivityContract;
 import com.example.cotizaciondolar.models.LoginModel;
+import com.example.cotizaciondolar.models.RegisterModel;
 import com.example.cotizaciondolar.views.MainActivity;
 import com.example.cotizaciondolar.views.RegisterActivity;
 
-import java.util.List;
+public class RegisterPresenter implements RegisterActivityContract.Presenter, RegisterActivityContract.Model.OnFinishedListener {
 
-public class LoginPresenter implements LoginActivityContract.Presenter, LoginActivityContract.Model.OnFinishedListener {
+    private RegisterActivityContract.View view;
+    private RegisterActivityContract.Model model;
 
-    private LoginActivityContract.View view;
-    private LoginActivityContract.Model model;
-
-
-    public LoginPresenter(LoginActivityContract.View mainView) {
+    public RegisterPresenter(RegisterActivityContract.View mainView) {
         this.view = mainView;
-        this.model = new LoginModel();
-    }
-
-    @Override
-    public void Login() {
-        this.model.ValidateUser(this.view.getUsername(), this.view.getPassword(),this);
-    }
-
-    @Override // boton para ir de loggin a registrar
-    public void Regis() {
-        Intent intent = new Intent((Activity) this.view, RegisterActivity.class);
-        ((Activity) this.view).startActivity(intent);
+        this.model = new RegisterModel();
     }
 
     @Override
     public void onSuccess() {
         DataAccess dal = new DataAccess(((Activity)this.view));
-        dal.insertUserHistory(this.view.getUsername());
+        dal.insertUserHistory(this.view.getEmail());
 
         Intent intent = new Intent((Activity) this.view, MainActivity.class);
         ((Activity) this.view).startActivity(intent);
@@ -51,5 +38,10 @@ public class LoginPresenter implements LoginActivityContract.Presenter, LoginAct
     @Override
     public void onFailure(Throwable t) {
         this.view.setMessage("Error general");
+    }
+
+    @Override
+    public void Register() {
+        this.model.RegisterUser(this.view.getName(),this.view.getLastName(),this.view.getDni(), this.view.getEmail(), this.view.getPassword(),this.view.getCommission(),this.view.getGroup(),this);
     }
 }

@@ -20,6 +20,7 @@ public class LoginActivity extends Activity implements LoginActivityContract.Vie
     EditText userEditText;
     EditText passEditText;
     Button btnConfirm;
+    Button btnRegis;
 
     // Defino mi presenter
     LoginActivityContract.Presenter presenter;
@@ -34,8 +35,14 @@ public class LoginActivity extends Activity implements LoginActivityContract.Vie
         userEditText = this.findViewById(R.id.userEditText);
         passEditText = this.findViewById(R.id.passEditText);
         btnConfirm = this.findViewById(R.id.btnConfirm);
+        btnRegis = this.findViewById(R.id.btnRegis);
 
         presenter = new LoginPresenter(this);
+
+        btnRegis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { presenter.Regis(); }
+        });
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override

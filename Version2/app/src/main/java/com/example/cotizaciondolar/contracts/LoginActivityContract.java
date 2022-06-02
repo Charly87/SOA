@@ -20,5 +20,7 @@ public interface LoginActivityContract {
 
     interface Presenter {
         void Login();
+        void Regis();
     }
+
 }

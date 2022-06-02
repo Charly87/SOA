@@ -4,14 +4,14 @@ public class RegisterRequest {
     private String env;
     private String name;
     private String lastname;
-    private int dni;
+    private String dni;
     private String email;
     private String password;
-    private int commission;
-    private int group;
+    private String commission;
+    private String group;
 
-    public RegisterRequest(String name, String lastname, int dni, String email, String password, int commission, int group) {
-        this.env = "PROD";
+    public RegisterRequest(String name, String lastname, String dni, String email, String password, String commission, String group) {
+        this.env = "TEST"; // poner varialbe externa en algun lado.
         this.name = name;
         this.lastname = lastname;
         this.dni = dni;
@@ -37,11 +37,11 @@ public class RegisterRequest {
         this.lastname = lastname;
     }
 
-    public int getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
@@ -61,19 +61,19 @@ public class RegisterRequest {
         this.password = password;
     }
 
-    public int getCommission() {
+    public String getCommission() {
         return commission;
     }
 
-    public void setCommission(int commission) {
+    public void setCommission(String commission) {
         this.commission = commission;
     }
 
-    public int getGroup() {
+    public String getGroup() {
         return group;
     }
 
-    public void setGroup(int group) {
+    public void setGroup(String group) {
         this.group = group;
     }
 
