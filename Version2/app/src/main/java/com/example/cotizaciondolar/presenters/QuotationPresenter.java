@@ -5,7 +5,6 @@ import static com.example.cotizaciondolar.views.MainActivity.OFFICIAL_BUTTON_ID;
 import static com.example.cotizaciondolar.views.MainActivity.STOCK_BUTTON_ID;
 
 import android.hardware.SensorEvent;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -24,11 +23,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class QuotationPresenter implements QuotationContract.Presenter {
     private final QuotationContract.View view;
     private final DolarService service;
-    private StringBuilder builder;
     private float lastZValue;
-    private String[] direction;
+    private boolean recentlyMoved = false;
 
-    private static final int Z_AXIS_TRESHOLD = 2;
+    // Umbral de deteccion de movimiento del eje Z del acelerometro
+    // En 5 detecta movimientos a partir de los 30 grados de diferencia
+    // con la posicion anterior
+    private static final int Z_AXIS_THRESHOLD = 5;
 
     public QuotationPresenter(QuotationContract.View view) {
         this.view = view;
@@ -38,9 +39,6 @@ public class QuotationPresenter implements QuotationContract.Presenter {
                 .build();
 
         this.service = retrofit.create(DolarService.class);
-
-        builder = new StringBuilder();
-        direction = new String[]{"NONE", "NONE"};
     }
 
     @Override
@@ -84,18 +82,30 @@ public class QuotationPresenter implements QuotationContract.Presenter {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        // TODO: usar un thread para que chequee cada x tiempo y chequear umbral
+        // TODO: mover a una clase utils
         float currentZValue = event.values[0];
-        float zValueChange = lastZValue - currentZValue;
+        // Solo se tomara como valido un movimiento de hasta 90 grados (valor 9.8 del acelerometro)
+        if (currentZValue > -9.8 && currentZValue < 9.8) {
 
-        lastZValue = currentZValue;
+            // Si hubo un movimiento no volvera a realizar accion al volver a la posicion normal del celular
+            if (recentlyMoved) {
+                if (currentZValue > -Z_AXIS_THRESHOLD && currentZValue < Z_AXIS_THRESHOLD) {
+                    lastZValue = 0;
+                    recentlyMoved = false;
+                    return;
+                }
+            }
 
-        if (zValueChange > Z_AXIS_TRESHOLD) {
-//            logEvent("RIGHT");
-            changeCheckedButton(false);
-        } else if (zValueChange < -Z_AXIS_TRESHOLD) {
-//            logEvent("LEFT");
-            changeCheckedButton(true);
+            float zValueChange = lastZValue - currentZValue;
+
+            lastZValue = currentZValue;
+
+            // Solo son leidos como movimientos los que sean mayores a 30 grados
+            if (zValueChange > Z_AXIS_THRESHOLD) {
+                changeCheckedButton(true);
+            } else if (zValueChange < -Z_AXIS_THRESHOLD) {
+                changeCheckedButton(false);
+            }
         }
     }
 
@@ -109,26 +119,26 @@ public class QuotationPresenter implements QuotationContract.Presenter {
                 } else {
                     view.setCheckedButton(STOCK_BUTTON_ID);
                 }
+                recentlyMoved = true;
+                break;
             case BLUE_BUTTON_ID:
                 if (toTheRight) {
                     view.setCheckedButton(STOCK_BUTTON_ID);
                 } else {
                     view.setCheckedButton(OFFICIAL_BUTTON_ID);
                 }
+                recentlyMoved = true;
+                break;
             case STOCK_BUTTON_ID:
                 if (toTheRight) {
                     view.setCheckedButton(OFFICIAL_BUTTON_ID);
                 } else {
                     view.setCheckedButton(BLUE_BUTTON_ID);
                 }
+                recentlyMoved = true;
+                break;
+            default:
+                break;
         }
-    }
-
-    private void logEvent(final String dir) {
-        direction[0] = dir;
-        builder.setLength(0);
-        builder.append("x: ");
-        builder.append(direction[0]);
-        Log.i("asd", builder.toString());
     }
 }

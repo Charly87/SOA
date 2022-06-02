@@ -54,7 +54,7 @@ public class QuotationFragment extends Fragment implements
 
         SensorManager manager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         Sensor accelerometer = manager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
-        manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
+        manager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
         setListeners();
 
