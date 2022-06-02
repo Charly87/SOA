@@ -12,8 +12,13 @@
     <string name="menu_events">Events</string>
 
     <string name="uri_dolar_argentina">https://api-dolar-argentina.herokuapp.com/api/</string>
+    <string name="uri_soa">http://so-unlam.net.ar/api/api/</string>
     <string name="spinner_title">Cotizacion</string>
     <string name="button_oficial_text">oficial</string>
     <string name="button_blue_text">blue</string>
     <string name="button_bolsa_text">bolsa</string>
+
+    <string name="usuario">Usuario</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="aceptar">Aceptar</string>
 </resources>

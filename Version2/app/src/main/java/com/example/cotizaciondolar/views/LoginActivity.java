@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cotizaciondolar.R;
 import com.example.cotizaciondolar.contracts.LoginActivityContract;
@@ -14,11 +16,11 @@ import com.example.cotizaciondolar.presenters.LoginPresenter;
 
 public class LoginActivity extends Activity implements LoginActivityContract.View {
 
-    // lo cree como prueba solo para poder pasar al menu principal
-    Button btnConfirm;
-
     // Defino mis objetos a utilizar
-    TextView textView;
+    EditText userEditText;
+    EditText passEditText;
+    Button btnConfirm;
+    Button btnRegis;
 
     // Defino mi presenter
     LoginActivityContract.Presenter presenter;
@@ -30,34 +32,44 @@ public class LoginActivity extends Activity implements LoginActivityContract.Vie
         setContentView(R.layout.activity_login);
 
         // Realizo el binding de los objetos del XML a mis objetos en el Activity
-        textView = this.findViewById(R.id.textView);
-
-        presenter = new LoginPresenter(this, new LoginModel());
-
-        // lo cree como prueba solo para poder pasar al menu principal
+        userEditText = this.findViewById(R.id.userEditText);
+        passEditText = this.findViewById(R.id.passEditText);
         btnConfirm = this.findViewById(R.id.btnConfirm);
+        btnRegis = this.findViewById(R.id.btnRegis);
+
+        presenter = new LoginPresenter(this);
+
+        btnRegis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { presenter.Regis(); }
+        });
+
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-
-                ((Activity) LoginActivity.this).startActivity(intent);
+               presenter.Login();
             }
         });
 
     }
 
     @Override
-    public void setText(String text) {
-        textView.setText(text);
+    public void setMessage(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public String getUsername() {
+        return userEditText.getText().toString();
+    }
+
+    @Override
+    public String getPassword() {
+        return passEditText.getText().toString();
     }
 
     @Override
     public void onBackPressed() {
-//        if (shouldAllowBack()) {
-//            super.onBackPressed();
-//        } else {
-//            doSomething();
-//        }
+        // Deshabilitamos que no pueda volver a la pantalla anterior
     }
 }
