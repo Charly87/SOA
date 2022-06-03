@@ -1,6 +1,7 @@
 package com.example.cotizaciondolar.views;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -31,7 +32,9 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_signup);
+
+        getSupportActionBar().setTitle("Registrar usuario");
 
         // Realizo el binding de los objetos del XML a mis objetos en el Activity
         nameEditText = this.findViewById(R.id.nameEditText);
@@ -46,13 +49,19 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
 
         presenter = new SignUpPresenter(this);
 
-        confirmButton.setOnClickListener(new android.view.View.OnClickListener() {
+        confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(android.view.View view) {
-                presenter.signUp();
+                presenter.onConfirmButtonClick();
             }
         });
 
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onCancelButtonClick();
+            }
+        });
     }
 
     @Override

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,8 +21,7 @@ public class CodeActivity extends AppCompatActivity implements CodeContract.View
     // Defino mis objetos a utilizar
     Button btnConfirm;
     Button btnGenerate;
-    EditText txtCode;
-    TextView lblMessage;
+    EditText codeEditText;
 
     // Defino mi presenter
     CodeContract.Presenter presenter;
@@ -62,11 +60,12 @@ public class CodeActivity extends AppCompatActivity implements CodeContract.View
                         Manifest.permission.SEND_SMS},
                 PackageManager.PERMISSION_GRANTED);
 
+        getSupportActionBar().setTitle("Código de doble factor");
+
         // Realizo el binding de los objetos del XML a mis objetos en el Activity
         btnConfirm = this.findViewById(R.id.btnConfirm);
         btnGenerate = this.findViewById(R.id.btnGenerate);
-        txtCode = this.findViewById(R.id.txtCode);
-        lblMessage = this.findViewById(R.id.lblMessage);
+        codeEditText = this.findViewById(R.id.txtCode);
 
         // Instancio mi presentador pasandole este activity y el model
         presenter = new CodePresenter(this, new CodeModel());
@@ -96,18 +95,16 @@ public class CodeActivity extends AppCompatActivity implements CodeContract.View
 
     @Override
     public String getCode() {
-        return txtCode.getText().toString();
+        return codeEditText.getText().toString();
     }
 
     @Override
     public void cleanError() {
-        this.lblMessage.setVisibility(View.INVISIBLE);
-        this.lblMessage.setText("");
+        codeEditText.setError(null);
     }
 
     @Override
     public void setError(String error) {
-        this.lblMessage.setText(error);
-        this.lblMessage.setVisibility(View.VISIBLE);
+        codeEditText.setError("Código incorrecto");
     }
 }

@@ -37,6 +37,8 @@ public interface SignUpContract {
     }
 
     interface Presenter {
-        void signUp();
+        void onConfirmButtonClick();
+
+        void onCancelButtonClick();
     }
 }

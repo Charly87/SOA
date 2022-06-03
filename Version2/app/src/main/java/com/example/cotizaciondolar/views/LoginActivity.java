@@ -28,6 +28,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        getSupportActionBar().setTitle("Iniciar sesión");
+
         // Realizo el binding de los objetos del XML a mis objetos en el Activity
         userEditText = this.findViewById(R.id.userEditText);
         passEditText = this.findViewById(R.id.passEditText);

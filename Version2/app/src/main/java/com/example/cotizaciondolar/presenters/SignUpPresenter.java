@@ -7,6 +7,7 @@ import com.example.cotizaciondolar.DataAccess;
 import com.example.cotizaciondolar.contracts.SignUpContract;
 import com.example.cotizaciondolar.models.SignUpModel;
 import com.example.cotizaciondolar.models.entities.SignUpRequest;
+import com.example.cotizaciondolar.views.LoginActivity;
 import com.example.cotizaciondolar.views.MainActivity;
 
 public class SignUpPresenter implements
@@ -41,7 +42,7 @@ public class SignUpPresenter implements
     }
 
     @Override
-    public void signUp() {
+    public void onConfirmButtonClick() {
         SignUpRequest signUpRequest = new SignUpRequest(
                 this.view.getName(),
                 this.view.getLastName(),
@@ -54,5 +55,11 @@ public class SignUpPresenter implements
         );
 
         this.model.signUpUser(signUpRequest, this);
+    }
+
+    @Override
+    public void onCancelButtonClick() {
+        Intent intent = new Intent((Activity) view, LoginActivity.class);
+        ((Activity) view).startActivity(intent);
     }
 }

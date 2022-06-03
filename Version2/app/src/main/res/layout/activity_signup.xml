@@ -12,18 +12,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginTop="40dp"
+        app:layout_constraintBottom_toTopOf="@id/horizontalLinear"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:id="@+id/textScreen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Registrar Usuario"
-            android:textStyle="bold"
-            android:textSize="26sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_marginTop="30dp"
@@ -92,6 +84,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:endIconMode="password_toggle"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="Contraseña">
 
@@ -136,6 +129,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/horizontalLinear"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
         android:layout_marginBottom="20dp"
@@ -144,18 +138,19 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:id="@+id/confirmButton"
-            android:layout_margin="10dp"
-            android:layout_width="150dp"
-            android:layout_height="60dp"
-            android:text="Registrar" />
-
-        <Button
             android:id="@+id/cancelButton"
             android:layout_margin="10dp"
             android:layout_width="150dp"
             android:layout_height="60dp"
             android:text="Cancelar" />
+
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_margin="10dp"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:text="Confirmar" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
