@@ -2,8 +2,9 @@ package com.example.cotizaciondolar.views;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -12,16 +13,19 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.cotizaciondolar.R;
+import com.example.cotizaciondolar.contracts.MainContract;
 import com.example.cotizaciondolar.databinding.ActivityMainBinding;
+import com.example.cotizaciondolar.presenters.MainPresenter;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainContract.View {
     public static final int OFFICIAL_BUTTON_ID = R.id.btn_official;
     public static final int BLUE_BUTTON_ID = R.id.btn_blue;
     public static final int STOCK_BUTTON_ID = R.id.btn_stock;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+    MainContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -55,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
                 navController,
                 mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        presenter = new MainPresenter(this);
     }
 
     @Override
@@ -76,5 +75,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // Deshabilitamos que no pueda volver a la pantalla anterior
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logout:
+                presenter.onLogoutClick();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
