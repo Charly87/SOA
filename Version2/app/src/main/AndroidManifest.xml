@@ -21,20 +21,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CotizacionDolar"
         tools:targetApi="31">
-        <activity
-            android:name=".views.SignUpActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".views.LoginActivity"
-            android:exported="true">
-
-        </activity>
-
+        <!-- Primer pantalla -->
         <activity
             android:name=".views.CodeActivity"
             android:exported="true">
 
         </activity>
+        <!-- Menu -->
         <activity
             android:name=".views.MainActivity"
             android:exported="true"
@@ -44,9 +37,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <!-- Login -->
+        <activity
+            android:name=".views.LoginActivity"
+            android:exported="true">
 
         </activity>
+        <!-- Registro -->
+        <activity
+            android:name=".views.SignUpActivity"
+            android:exported="true">
 
+        </activity>
         <receiver
             android:name=".SMSBroadcast"
             android:enabled="true"
