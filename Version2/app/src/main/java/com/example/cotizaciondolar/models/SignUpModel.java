@@ -1,8 +1,12 @@
 package com.example.cotizaciondolar.models;
 
+import static com.example.cotizaciondolar.models.entities.EventType.USER_SIGNED_UP;
+
 import com.example.cotizaciondolar.contracts.SignUpContract;
+import com.example.cotizaciondolar.models.entities.EventRequest;
 import com.example.cotizaciondolar.models.entities.SignUpRequest;
 import com.example.cotizaciondolar.models.entities.SignUpResponse;
+import com.example.cotizaciondolar.services.EventsService;
 import com.example.cotizaciondolar.services.SoaApi;
 import com.example.cotizaciondolar.services.SoaApiClient;
 import com.google.gson.Gson;
@@ -28,6 +32,10 @@ public class SignUpModel implements SignUpContract.Model {
                     if (sr.isSuccess()) {
                         GlobalSession.authToken = sr.getToken();
                         GlobalSession.refreshToken = sr.getTokenRefresh();
+                        
+                        EventRequest eventRequest = new EventRequest(USER_SIGNED_UP, "Usuario registrado: " + signUpRequest.getEmail());
+                        EventsService eventsService = new EventsService();
+                        eventsService.execute(eventRequest);
 
                         onFinishedListener.onSuccess();
                     } else {

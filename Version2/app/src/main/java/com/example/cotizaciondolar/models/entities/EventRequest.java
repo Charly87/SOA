@@ -1,29 +1,29 @@
 package com.example.cotizaciondolar.models.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 public class EventRequest {
-    private String env;
-    private String type_events;
+    @SerializedName("env")
+    private String environment;
+    @SerializedName("type_events")
+    private EventType eventType;
     private String description;
 
-    public EventRequest(String type_events, String description) {
-        this.env = "PROD";
-        this.type_events = type_events;
+    public EventRequest(EventType eventType, String description) {
+        this.environment = "TEST";
+        this.eventType = eventType;
         this.description = description;
+    }
+
+    public String getEnvironment() {
+        return environment;
+    }
+
+    public EventType getEventType() {
+        return eventType;
     }
 
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getType_events() {
-        return type_events;
-    }
-
-    public void setType_events(String type_events) {
-        this.type_events = type_events;
     }
 }

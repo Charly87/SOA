@@ -3,16 +3,14 @@ package com.example.cotizaciondolar.models.entities;
 import com.google.gson.annotations.SerializedName;
 
 public class EventResponse {
-    @SerializedName("success")
-    private boolean success;
+    private final boolean success;
     @SerializedName("env")
-    private String env;
-    @SerializedName("event")
-    private Event event;
+    private final String environment;
+    private final Event event;
 
-    public EventResponse(boolean success, String env, Event event) {
+    public EventResponse(boolean success, String environment, Event event) {
         this.success = success;
-        this.env = env;
+        this.environment = environment;
         this.event = event;
     }
 
@@ -20,24 +18,11 @@ public class EventResponse {
         return success;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public String getEnv() {
-        return env;
-    }
-
-    public void setEnv(String env) {
-        this.env = env;
+    public String getEnvironment() {
+        return environment;
     }
 
     public Event getEvent() {
         return event;
     }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
 }
