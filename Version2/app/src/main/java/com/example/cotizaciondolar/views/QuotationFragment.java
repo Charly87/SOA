@@ -38,7 +38,7 @@ public class QuotationFragment extends Fragment implements
         binding = FragmentQuotationBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        presenter = new QuotationPresenter(this);
+        presenter = new QuotationPresenter(this, getContext());
 
         buttonToggleGroup = binding.buttonToggleGroup;
         dateText = binding.textDate;

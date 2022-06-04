@@ -4,25 +4,30 @@ import static com.example.cotizaciondolar.models.entities.EventType.USER_SIGNED_
 
 import android.content.Context;
 
-import com.example.cotizaciondolar.DataAccess;
 import com.example.cotizaciondolar.contracts.SignUpContract;
+import com.example.cotizaciondolar.database.UserHistoryRepository;
 import com.example.cotizaciondolar.models.entities.EventRequest;
 import com.example.cotizaciondolar.models.entities.SignUpRequest;
 import com.example.cotizaciondolar.models.entities.SignUpResponse;
-import com.example.cotizaciondolar.services.EventsService;
+import com.example.cotizaciondolar.services.EventService;
+import com.example.cotizaciondolar.services.SessionManager;
 import com.example.cotizaciondolar.services.SoaApi;
 import com.example.cotizaciondolar.services.SoaApiClient;
-import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignUpModel implements SignUpContract.Model {
-    private final DataAccess dataAccess;
+    private final UserHistoryRepository userHistoryRepository;
+    private final SessionManager sessionManager;
+    private EventService eventService;
+    private final Context context;
 
     public SignUpModel(Context context) {
-        dataAccess = new DataAccess(context);
+        this.context = context;
+        userHistoryRepository = new UserHistoryRepository(context);
+        sessionManager = new SessionManager(context);
     }
 
     @Override
@@ -33,34 +38,50 @@ public class SignUpModel implements SignUpContract.Model {
         call.enqueue(new Callback<SignUpResponse>() {
             @Override
             public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
-                if (response.isSuccessful()) {
-                    SignUpResponse sr = response.body();
+                SignUpResponse signUpResponse = response.body();
 
-                    if (sr.isSuccess()) {
-                        // TODO: tomar el token del session manager
-                        GlobalSession.authToken = sr.getToken();
-                        GlobalSession.refreshToken = sr.getTokenRefresh();
+                if (response.isSuccessful() && signUpResponse != null) {
+                    if (signUpResponse.isSuccess()) {
+                        // Guarda los datos de sesion del usuario
+                        sessionManager.createLoginSession(
+                                signUpRequest.getEmail(),
+                                signUpResponse.getToken(),
+                                signUpResponse.getTokenRefresh()
+                        );
 
-                        EventRequest eventRequest = new EventRequest(USER_SIGNED_UP, "Usuario registrado: " + signUpRequest.getEmail());
-                        EventsService eventsService = new EventsService();
-                        eventsService.execute(eventRequest);
+                        // Genera un evento de usuario registrado
+                        EventRequest signedUpEvent = new EventRequest(
+                                USER_SIGNED_UP,
+                                "Registro e inicio de sesión del usuario " + signUpRequest.getEmail()
+                        );
 
-                        dataAccess.insertUserHistory(signUpRequest.getEmail());
+                        eventService = new EventService(context);
+                        eventService.execute(signedUpEvent);
+
+                        // Guarda el historial del usuario en la base de datos
+                        userHistoryRepository.insertUserHistory(signUpRequest.getEmail());
+
                         onFinishedListener.onSuccess();
                     } else {
-                        onFinishedListener.onError(sr.getMsg());
+                        onFinishedListener.onError(signUpResponse.getMessage());
                     }
                 } else {
-                    SignUpResponse lr = new Gson().fromJson(response.errorBody().charStream(), SignUpResponse.class);
-                    onFinishedListener.onError(lr.getMsg());
+                    String error;
+
+                    if (signUpResponse != null) {
+                        error = signUpResponse.getMessage();
+                    } else {
+                        error = response.body().getMessage();
+                    }
+
+                    onFinishedListener.onError(error);
                 }
             }
 
             @Override
             public void onFailure(Call<SignUpResponse> call, Throwable t) {
-                onFinishedListener.onFailure(t);
+                onFinishedListener.onError(t.getMessage());
             }
         });
-
     }
 }

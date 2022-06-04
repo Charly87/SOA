@@ -1,4 +1,4 @@
-package com.example.cotizaciondolar;
+package com.example.cotizaciondolar.database;
 
 import android.provider.BaseColumns;
 

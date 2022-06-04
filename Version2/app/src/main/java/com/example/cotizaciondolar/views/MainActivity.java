@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public static final int BLUE_BUTTON_ID = R.id.btn_blue;
     public static final int STOCK_BUTTON_ID = R.id.btn_stock;
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainBinding binding;
 
     MainContract.Presenter presenter;
 
@@ -31,12 +30,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        com.example.cotizaciondolar.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        presenter = new MainPresenter(this);
+        presenter = new MainPresenter(this, getApplicationContext());
     }
 
     @Override

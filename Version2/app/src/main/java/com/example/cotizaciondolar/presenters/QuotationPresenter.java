@@ -4,6 +4,7 @@ import static com.example.cotizaciondolar.views.MainActivity.BLUE_BUTTON_ID;
 import static com.example.cotizaciondolar.views.MainActivity.OFFICIAL_BUTTON_ID;
 import static com.example.cotizaciondolar.views.MainActivity.STOCK_BUTTON_ID;
 
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,16 +24,16 @@ public class QuotationPresenter implements
     private boolean recentlyMoved = false;
     private float lastZValue;
 
-    public QuotationPresenter(QuotationContract.View view) {
+    public QuotationPresenter(QuotationContract.View view, Context context) {
         this.view = view;
-        this.model = new QuotationModel();
+        this.model = new QuotationModel(context);
     }
 
     @Override
     public void requestDataFromServer(int checkedId, boolean isChecked) {
         // Solo llama a la API cuando el boton de cotizacion esta presionado
         if (isChecked) {
-            model.getDollarQuotation(this, checkedId);
+            model.getQuotationData(this, checkedId);
         }
     }
 

@@ -6,9 +6,11 @@ public interface MainContract {
     }
 
     interface Model {
+        void logoutUser();
     }
 
     interface Presenter {
+
         void onLogoutClick();
     }
 }

@@ -70,8 +70,6 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    // TODO: validar todos estos campos
-
     @Override
     public Editable getName() {
         return nameEditText.getText();

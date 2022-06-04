@@ -14,6 +14,7 @@ public class SoaApiClient {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
+
         return retrofit;
     }
 }

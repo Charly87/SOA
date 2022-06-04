@@ -1,80 +1,66 @@
 package com.example.cotizaciondolar.models.entities;
 
-public class SignUpRequest {
-    private String env;
-    private String name;
-    private String lastname;
-    private int dni;
-    private String email;
-    private String password;
-    private int commission;
-    private int group;
+import com.google.gson.annotations.SerializedName;
 
-    public SignUpRequest(String name, String lastname, int dni, String email, String password, int commission, int group) {
-        this.env = "TEST"; // poner varialbe externa en algun lado.
+public class SignUpRequest {
+    @SerializedName("env")
+    private final String environment;
+    private final String name;
+    @SerializedName("lastname")
+    private final String lastName;
+    private final int dni;
+    private final String email;
+    private final String password;
+    private final int commission;
+    private final int group;
+
+    public SignUpRequest(
+            String name,
+            String lastName,
+            int dni,
+            String email,
+            String password,
+            int commission,
+            int group) {
+        this.environment = "TEST";
         this.name = name;
-        this.lastname = lastname;
+        this.lastName = lastName;
         this.dni = dni;
         this.email = email;
         this.password = password;
         this.commission = commission;
         this.group = group;
+    }
+
+    public String getEnvironment() {
+        return environment;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public String getLastName() {
+        return lastName;
     }
 
     public int getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
-        this.dni = dni;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public int getCommission() {
         return commission;
-    }
-
-    public void setCommission(int commission) {
-        this.commission = commission;
     }
 
     public int getGroup() {
         return group;
     }
-
-    public void setGroup(int group) {
-        this.group = group;
-    }
-
 }

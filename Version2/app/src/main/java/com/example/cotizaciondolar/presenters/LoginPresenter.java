@@ -3,10 +3,9 @@ package com.example.cotizaciondolar.presenters;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.example.cotizaciondolar.DataAccess;
 import com.example.cotizaciondolar.contracts.LoginContract;
 import com.example.cotizaciondolar.models.LoginModel;
-import com.example.cotizaciondolar.services.SessionManager;
+import com.example.cotizaciondolar.models.entities.LoginRequest;
 import com.example.cotizaciondolar.views.MainActivity;
 import com.example.cotizaciondolar.views.SignUpActivity;
 
@@ -16,20 +15,22 @@ public class LoginPresenter implements
 
     private final LoginContract.View view;
     private final LoginContract.Model model;
-    private SessionManager sessionManager;
 
     public LoginPresenter(LoginContract.View mainView) {
         this.view = mainView;
-        this.model = new LoginModel();
-        this.sessionManager = new SessionManager(((Activity) view).getApplicationContext());
+        this.model = new LoginModel((Activity) mainView);
     }
 
     @Override
     public void onLoginButtonClicked() {
-        this.model.validateUser(this.view.getUsername(), this.view.getPassword(), this);
+        String email = this.view.getUsername();
+        String password = this.view.getPassword();
+
+        LoginRequest request = new LoginRequest(email, password);
+
+        this.model.loginUser(request, this);
     }
 
-    // boton para ir de loggin a registrar
     @Override
     public void onSignUpButtonClicked() {
         Intent intent = new Intent((Activity) this.view, SignUpActivity.class);
@@ -38,22 +39,12 @@ public class LoginPresenter implements
 
     @Override
     public void onSuccess() {
-        DataAccess dal = new DataAccess(((Activity) this.view));
-        dal.insertUserHistory(this.view.getUsername());
-
-        sessionManager.createLoginSession("Nombre Apellido", "email@gmail.com");
-
         Intent intent = new Intent((Activity) this.view, MainActivity.class);
         ((Activity) this.view).startActivity(intent);
     }
 
     @Override
     public void onError(String msg) {
-        this.view.showLongToast(msg);
-    }
-
-    @Override
-    public void onFailure(Throwable t) {
-        this.view.showLongToast("Error general");
+        this.view.showLongToast("Error al iniciar sesión: " + msg);
     }
 }

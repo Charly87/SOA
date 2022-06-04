@@ -1,6 +1,7 @@
 package com.example.cotizaciondolar.views;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
     private FragmentHistoryBinding binding;
     private HistoryContract.Presenter presenter;
+    private Context context;
 
     private DataTable dataTable;
 
@@ -32,11 +34,11 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
         binding = FragmentHistoryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        presenter = new HistoryPresenter(this);
-
         dataTable = binding.dataTable;
 
+        context = getContext();
+
+        presenter = new HistoryPresenter(this, context);
         presenter.onGenerateTable();
 
         return root;
@@ -51,6 +53,6 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     public void loadTable(DataTableHeader header, ArrayList<DataTableRow> rows) {
         dataTable.setHeader(header);
         dataTable.setRows(rows);
-        dataTable.inflate(getContext());
+        dataTable.inflate(context);
     }
 }

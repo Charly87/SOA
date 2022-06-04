@@ -1,7 +1,5 @@
 package com.example.cotizaciondolar.views;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,11 +7,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import com.example.cotizaciondolar.R;
 import com.example.cotizaciondolar.contracts.CodeContract;
-import com.example.cotizaciondolar.models.CodeModel;
 import com.example.cotizaciondolar.presenters.CodePresenter;
 
 public class CodeActivity extends AppCompatActivity implements CodeContract.View {
@@ -33,14 +29,7 @@ public class CodeActivity extends AppCompatActivity implements CodeContract.View
 
         // Cons esta línea la primera vez la app solicita permisos para leer SMS,
         // enviar SMS, acceder al numero, etc
-        ActivityCompat.requestPermissions(
-                CodeActivity.this,
-                new String[]{
-                        Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.READ_SMS,
-                        Manifest.permission.RECEIVE_SMS,
-                        Manifest.permission.SEND_SMS},
-                PackageManager.PERMISSION_GRANTED);
+ 
 
         getSupportActionBar().setTitle("Código de doble factor");
 
@@ -50,7 +39,7 @@ public class CodeActivity extends AppCompatActivity implements CodeContract.View
         codeEditText = this.findViewById(R.id.txtCode);
 
         // Instancio mi presentador pasandole este activity y el model
-        presenter = new CodePresenter(this, new CodeModel());
+        presenter = new CodePresenter(this, getApplicationContext());
         presenter.onGenerateNewCode();
 
         btnConfirm.setOnClickListener(buttonListeners);
@@ -87,6 +76,6 @@ public class CodeActivity extends AppCompatActivity implements CodeContract.View
 
     @Override
     public void setError(String error) {
-        codeEditText.setError("Código incorrecto");
+        codeEditText.setError(error);
     }
 }

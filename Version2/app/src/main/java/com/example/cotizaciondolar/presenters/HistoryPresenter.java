@@ -1,11 +1,10 @@
 package com.example.cotizaciondolar.presenters;
 
+import android.content.Context;
 
-import androidx.fragment.app.Fragment;
-
-import com.example.cotizaciondolar.Users;
 import com.example.cotizaciondolar.contracts.HistoryContract;
 import com.example.cotizaciondolar.models.HistoryModel;
+import com.example.cotizaciondolar.models.entities.UserLoginHistory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +12,18 @@ import java.util.List;
 import ir.androidexception.datatable.model.DataTableHeader;
 import ir.androidexception.datatable.model.DataTableRow;
 
-
 public class HistoryPresenter implements
         HistoryContract.Presenter {
 
     private final HistoryContract.View view;
     private final HistoryContract.Model model;
+    private final Context context;
 
-    public HistoryPresenter(HistoryContract.View view) {
+    public HistoryPresenter(HistoryContract.View view, Context context) {
         this.view = view;
         this.model = new HistoryModel();
+        this.context = context;
     }
-
 
     @Override
     public void onGenerateTable() {
@@ -35,15 +34,17 @@ public class HistoryPresenter implements
 
         ArrayList<DataTableRow> rows = new ArrayList<>();
 
-        List<Users> list = model.getHistoryData(((Fragment) view).getContext());
-        
-        for (Users l : list) {
+        List<UserLoginHistory> userLoginHistories = model.getHistoryData(context);
+
+        for (UserLoginHistory userLoginHistory : userLoginHistories) {
             DataTableRow row = new DataTableRow.Builder()
-                    .value(l.getEmail())
-                    .value(l.getDate())
+                    .value(userLoginHistory.getName())
+                    .value(userLoginHistory.getLoginDate())
                     .build();
+
             rows.add(row);
         }
+
         view.loadTable(header, rows);
     }
 }

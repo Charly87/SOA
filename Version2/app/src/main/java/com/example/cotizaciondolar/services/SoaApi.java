@@ -7,15 +7,11 @@ import com.example.cotizaciondolar.models.entities.LoginResponse;
 import com.example.cotizaciondolar.models.entities.SignUpRequest;
 import com.example.cotizaciondolar.models.entities.SignUpResponse;
 
-import java.util.Map;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
-import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-
 
 public interface SoaApi {
     @POST("register")
@@ -25,7 +21,7 @@ public interface SoaApi {
     Call<LoginResponse> postLogin(@Body LoginRequest request);
 
     @PUT("refresh")
-    Call<LoginResponse> putRefreshToken(@HeaderMap Map<String, String> headers);
+    Call<LoginResponse> putRefreshToken(@Header("Authorization") String tokenRefresh);
 
     @POST("event")
     Call<EventResponse> postEvent(@Header("Authorization") String token, @Body EventRequest request);

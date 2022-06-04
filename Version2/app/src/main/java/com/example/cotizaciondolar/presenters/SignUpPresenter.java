@@ -17,12 +17,10 @@ public class SignUpPresenter implements
 
     private final SignUpContract.View view;
     private final SignUpContract.Model model;
-    private final Context context;
 
     public SignUpPresenter(SignUpContract.View mainView, Context context) {
         this.view = mainView;
-        this.context = context;
-        this.model = new SignUpModel(this.context);
+        this.model = new SignUpModel(context);
     }
 
     @Override
@@ -33,12 +31,7 @@ public class SignUpPresenter implements
 
     @Override
     public void onError(String msg) {
-        this.view.showShortToast(msg);
-    }
-
-    @Override
-    public void onFailure(Throwable t) {
-        this.view.showShortToast("Error general");
+        this.view.showShortToast("Error en el registro: " + msg);
     }
 
     @Override

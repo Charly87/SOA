@@ -1,4 +1,4 @@
-package com.example.cotizaciondolar;
+package com.example.cotizaciondolar.services;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 public class SMSBroadcast extends BroadcastReceiver {
     private static String SMS = "android.provider.Telephony.SMS_RECEIVED";
-
+    
     @Override
     public void onReceive(Context context, Intent intent) {
 

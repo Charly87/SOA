@@ -1,5 +1,7 @@
 package com.example.cotizaciondolar.contracts;
 
+import com.example.cotizaciondolar.models.entities.LoginRequest;
+
 public interface LoginContract {
 
     interface View {
@@ -15,11 +17,9 @@ public interface LoginContract {
             void onSuccess();
 
             void onError(String msg);
-
-            void onFailure(Throwable t);
         }
 
-        void validateUser(String username, String password, OnFinishedListener onFinishedListener);
+        void loginUser(LoginRequest loginRequest, OnFinishedListener onFinishedListener);
     }
 
     interface Presenter {

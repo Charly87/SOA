@@ -32,7 +32,7 @@ public interface QuotationContract {
             void onFailure(Throwable t);
         }
 
-        void getDollarQuotation(OnFinishedListener onFinishedListener, int checkedId);
+        void getQuotationData(OnFinishedListener onFinishedListener, int checkedId);
     }
 
     interface Presenter {

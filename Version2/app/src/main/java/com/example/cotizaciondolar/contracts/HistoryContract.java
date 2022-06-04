@@ -3,7 +3,7 @@ package com.example.cotizaciondolar.contracts;
 
 import android.content.Context;
 
-import com.example.cotizaciondolar.Users;
+import com.example.cotizaciondolar.models.entities.UserLoginHistory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public interface HistoryContract {
     interface Model {
 
 
-        List<Users> getHistoryData(Context context);
+        List<UserLoginHistory> getHistoryData(Context context);
     }
 
     interface Presenter {

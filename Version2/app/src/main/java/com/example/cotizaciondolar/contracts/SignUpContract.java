@@ -31,8 +31,6 @@ public interface SignUpContract {
             void onSuccess();
 
             void onError(String msg);
-
-            void onFailure(Throwable t);
         }
 
         void signUpUser(SignUpRequest signUpRequest, OnFinishedListener onFinishedListener);

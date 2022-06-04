@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class EventRequest {
     @SerializedName("env")
-    private String environment;
+    private final String environment;
     @SerializedName("type_events")
-    private EventType eventType;
-    private String description;
+    private final EventType eventType;
+    private final String description;
 
     public EventRequest(EventType eventType, String description) {
         this.environment = "TEST";
@@ -15,15 +15,4 @@ public class EventRequest {
         this.description = description;
     }
 
-    public String getEnvironment() {
-        return environment;
-    }
-
-    public EventType getEventType() {
-        return eventType;
-    }
-
-    public String getDescription() {
-        return description;
-    }
 }
