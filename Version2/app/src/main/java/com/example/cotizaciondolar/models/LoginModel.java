@@ -15,7 +15,6 @@ public class LoginModel implements LoginContract.Model {
 
     @Override
     public void validateUser(String email, String password, OnFinishedListener onFinishedListener) {
-
         SoaApi apiService = SoaApiClient.getClient().create(SoaApi.class);
         LoginRequest request = new LoginRequest(email, password);
         Call<LoginResponse> call = apiService.postLogin(request);

@@ -23,9 +23,9 @@ public interface LoginContract {
     }
 
     interface Presenter {
-        void login();
+        void onLoginButtonClicked();
 
-        void signUp();
+        void onSignUpButtonClicked();
     }
 
 }

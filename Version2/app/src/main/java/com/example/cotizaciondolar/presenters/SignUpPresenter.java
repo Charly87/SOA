@@ -51,7 +51,6 @@ public class SignUpPresenter implements
                 this.view.getPassword(),
                 this.view.getCommission(),
                 this.view.getGroup()
-
         );
 
         this.model.signUpUser(signUpRequest, this);
