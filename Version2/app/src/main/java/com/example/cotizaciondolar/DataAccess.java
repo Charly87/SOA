@@ -8,6 +8,7 @@ import android.provider.BaseColumns;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class DataAccess {
     public DataAccess(Context context) {
         this.context = context;
     }
+
+    public void DataUssers(){String name; String date;}
 
     public long insertUserHistory(String username) {
         UserHistoryDb dbHelper = new UserHistoryDb(context);
@@ -40,6 +43,7 @@ public class DataAccess {
     }
 
     public List getAllUserHistory() {
+
         UserHistoryDb dbHelper = new UserHistoryDb(context);
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -72,16 +76,22 @@ public class DataAccess {
                 sortOrder               // The sort order
         );
 
-        List items = new ArrayList<>();
+        //List items = new ArrayList<>();
+        ArrayList<Users> users = new ArrayList<>();
         while (cursor.moveToNext()) {
             String name = cursor.getString(
                     cursor.getColumnIndexOrThrow(UserHistoryContract.FeedEntry.COLUMN_NAME_USER));
             String date = cursor.getString(
                     cursor.getColumnIndexOrThrow(UserHistoryContract.FeedEntry.COLUMN_NAME_LASTACCESS));
-            items.add("Nombre: " + name + " Fecha: " + date);
+            //items.add("Nombre: " + name + " Fecha: " + date);
+            Users person = new Users();
+            person.email=name;
+            person.date=date;
+            users.add(person);
+
         }
         cursor.close();
 
-        return items;
+        return users;
     }
 }

@@ -26,24 +26,6 @@ public class CodeActivity extends AppCompatActivity implements CodeContract.View
     // Defino mi presenter
     CodeContract.Presenter presenter;
 
-    //    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_code);
-//
-//        // Realizo el binding de los objetos del XML a mis objetos en el Activity
-//        btnOk = this.findViewById(R.id.btnOk);
-//
-//        btnOk.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent=new Intent(CodeActivity.this, MainActivity.class);
-//
-//                ((Activity) CodeActivity.this).startActivity(intent);
-//            }
-//        });
-//
-//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
