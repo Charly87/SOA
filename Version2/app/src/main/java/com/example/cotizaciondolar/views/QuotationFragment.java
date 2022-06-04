@@ -2,6 +2,7 @@ package com.example.cotizaciondolar.views;
 
 import android.content.Context;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -105,13 +106,13 @@ public class QuotationFragment extends Fragment implements
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
-//    @Override
-//    public void onSensorChanged(SensorEvent event) {
-//        presenter.onSensorChanged(event);
-//    }
-//
-//    @Override
-//    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-//
-//    }
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        presenter.onSensorChanged(event);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
 }

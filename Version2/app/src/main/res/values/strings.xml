@@ -7,7 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_logout">Cerrar sesión</string>
 
-    <string name="menu_history">Historial</string>
+    <string name="menu_history">Historial de login</string>
     <string name="menu_quotation">Cotización</string>
     <string name="menu_events">Events</string>
 

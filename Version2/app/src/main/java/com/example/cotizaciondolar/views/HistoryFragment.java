@@ -9,15 +9,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-
 import com.example.cotizaciondolar.contracts.HistoryContract;
-
 import com.example.cotizaciondolar.databinding.FragmentHistoryBinding;
 import com.example.cotizaciondolar.presenters.HistoryPresenter;
 
-
 import java.util.ArrayList;
-
 
 import ir.androidexception.datatable.DataTable;
 import ir.androidexception.datatable.model.DataTableHeader;
@@ -52,7 +48,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         binding = null;
     }
 
-    public void loadTable(DataTableHeader header, ArrayList<DataTableRow> rows){
+    public void loadTable(DataTableHeader header, ArrayList<DataTableRow> rows) {
         dataTable.setHeader(header);
         dataTable.setRows(rows);
         dataTable.inflate(getContext());

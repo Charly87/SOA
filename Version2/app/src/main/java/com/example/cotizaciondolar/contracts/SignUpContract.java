@@ -1,5 +1,7 @@
 package com.example.cotizaciondolar.contracts;
 
+import android.text.Editable;
+
 import com.example.cotizaciondolar.models.entities.SignUpRequest;
 
 public interface SignUpContract {
@@ -8,19 +10,19 @@ public interface SignUpContract {
 
         void showShortToast(String msg);
 
-        String getName();
+        Editable getName();
 
-        String getLastName();
+        Editable getLastName();
 
-        String getDni();
+        Editable getDni();
 
-        String getEmail();
+        Editable getEmail();
 
-        String getPassword();
+        Editable getPassword();
 
-        String getCommission();
+        Editable getCommission();
 
-        String getGroup();
+        Editable getGroup();
 
     }
 

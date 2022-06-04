@@ -2,6 +2,9 @@ package com.example.cotizaciondolar.models;
 
 import static com.example.cotizaciondolar.models.entities.EventType.USER_SIGNED_UP;
 
+import android.content.Context;
+
+import com.example.cotizaciondolar.DataAccess;
 import com.example.cotizaciondolar.contracts.SignUpContract;
 import com.example.cotizaciondolar.models.entities.EventRequest;
 import com.example.cotizaciondolar.models.entities.SignUpRequest;
@@ -16,10 +19,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignUpModel implements SignUpContract.Model {
+    private final DataAccess dataAccess;
+
+    public SignUpModel(Context context) {
+        dataAccess = new DataAccess(context);
+    }
 
     @Override
     public void signUpUser(SignUpRequest signUpRequest, OnFinishedListener onFinishedListener) {
-
         SoaApi apiService = SoaApiClient.getClient().create(SoaApi.class);
         Call<SignUpResponse> call = apiService.postRegister(signUpRequest);
 
@@ -30,13 +37,15 @@ public class SignUpModel implements SignUpContract.Model {
                     SignUpResponse sr = response.body();
 
                     if (sr.isSuccess()) {
+                        // TODO: tomar el token del session manager
                         GlobalSession.authToken = sr.getToken();
                         GlobalSession.refreshToken = sr.getTokenRefresh();
-                        
+
                         EventRequest eventRequest = new EventRequest(USER_SIGNED_UP, "Usuario registrado: " + signUpRequest.getEmail());
                         EventsService eventsService = new EventsService();
                         eventsService.execute(eventRequest);
 
+                        dataAccess.insertUserHistory(signUpRequest.getEmail());
                         onFinishedListener.onSuccess();
                     } else {
                         onFinishedListener.onError(sr.getMsg());

@@ -1,5 +1,6 @@
 package com.example.cotizaciondolar.contracts;
 
+import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 
 import com.example.cotizaciondolar.models.entities.QuotationResponse;
@@ -17,6 +18,10 @@ public interface QuotationContract {
         void setCheckedButton(int buttonId);
 
         void showLongToast(String message);
+
+        void onSensorChanged(SensorEvent event);
+
+        void onAccuracyChanged(Sensor sensor, int accuracy);
     }
 
     interface Model {

@@ -1,6 +1,7 @@
 package com.example.cotizaciondolar.views;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -47,7 +48,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
         cancelButton = this.findViewById(R.id.cancelButton);
         confirmButton = this.findViewById(R.id.confirmButton);
 
-        presenter = new SignUpPresenter(this);
+        presenter = new SignUpPresenter(this, getApplicationContext());
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,38 +73,38 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
     // TODO: validar todos estos campos
 
     @Override
-    public String getName() {
-        return nameEditText.getText().toString();
+    public Editable getName() {
+        return nameEditText.getText();
     }
 
     @Override
-    public String getLastName() {
-        return lastNameEditText.getText().toString();
+    public Editable getLastName() {
+        return lastNameEditText.getText();
     }
 
     @Override
-    public String getDni() {
-        return dniEditText.getText().toString();
+    public Editable getDni() {
+        return dniEditText.getText();
     }
 
     @Override
-    public String getEmail() {
-        return emailEditText.getText().toString();
+    public Editable getEmail() {
+        return emailEditText.getText();
     }
 
     @Override
-    public String getPassword() {
-        return passwordEditText.getText().toString();
+    public Editable getPassword() {
+        return passwordEditText.getText();
     }
 
     @Override
-    public String getCommission() {
-        return comissionEditText.getText().toString();
+    public Editable getCommission() {
+        return comissionEditText.getText();
     }
 
     @Override
-    public String getGroup() {
-        return groupEditText.getText().toString();
+    public Editable getGroup() {
+        return groupEditText.getText();
     }
 
 

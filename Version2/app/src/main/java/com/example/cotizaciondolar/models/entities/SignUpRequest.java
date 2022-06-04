@@ -4,13 +4,13 @@ public class SignUpRequest {
     private String env;
     private String name;
     private String lastname;
-    private String dni;
+    private int dni;
     private String email;
     private String password;
-    private String commission;
-    private String group;
+    private int commission;
+    private int group;
 
-    public SignUpRequest(String name, String lastname, String dni, String email, String password, String commission, String group) {
+    public SignUpRequest(String name, String lastname, int dni, String email, String password, int commission, int group) {
         this.env = "TEST"; // poner varialbe externa en algun lado.
         this.name = name;
         this.lastname = lastname;
@@ -37,11 +37,11 @@ public class SignUpRequest {
         this.lastname = lastname;
     }
 
-    public String getDni() {
+    public int getDni() {
         return dni;
     }
 
-    public void setDni(String dni) {
+    public void setDni(int dni) {
         this.dni = dni;
     }
 
@@ -61,19 +61,19 @@ public class SignUpRequest {
         this.password = password;
     }
 
-    public String getCommission() {
+    public int getCommission() {
         return commission;
     }
 
-    public void setCommission(String commission) {
+    public void setCommission(int commission) {
         this.commission = commission;
     }
 
-    public String getGroup() {
+    public int getGroup() {
         return group;
     }
 
-    public void setGroup(String group) {
+    public void setGroup(int group) {
         this.group = group;
     }
 

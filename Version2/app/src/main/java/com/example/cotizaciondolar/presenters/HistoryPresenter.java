@@ -3,10 +3,8 @@ package com.example.cotizaciondolar.presenters;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.cotizaciondolar.DataAccess;
 import com.example.cotizaciondolar.Users;
 import com.example.cotizaciondolar.contracts.HistoryContract;
-
 import com.example.cotizaciondolar.models.HistoryModel;
 
 import java.util.ArrayList;
@@ -17,7 +15,7 @@ import ir.androidexception.datatable.model.DataTableRow;
 
 
 public class HistoryPresenter implements
-        HistoryContract.Presenter{
+        HistoryContract.Presenter {
 
     private final HistoryContract.View view;
     private final HistoryContract.Model model;
@@ -37,14 +35,15 @@ public class HistoryPresenter implements
 
         ArrayList<DataTableRow> rows = new ArrayList<>();
 
-        List<Users> list = model.getHistoryData(((Fragment)view).getContext());
-        for (Users l: list) {
+        List<Users> list = model.getHistoryData(((Fragment) view).getContext());
+        
+        for (Users l : list) {
             DataTableRow row = new DataTableRow.Builder()
                     .value(l.getEmail())
                     .value(l.getDate())
                     .build();
             rows.add(row);
         }
-        view.loadTable(header,rows);
+        view.loadTable(header, rows);
     }
 }
