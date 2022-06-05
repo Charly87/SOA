@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cotizaciondolar.iml" filepath="$PROJECT_DIR$/.idea/modules/cotizaciondolar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/cotizaciondolar.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/cotizaciondolar.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/cotizaciondolar.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/cotizaciondolar.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/cotizaciondolar.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/cotizaciondolar.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/cotizaciondolar.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/cotizaciondolar.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CotizacionDolar.iml" filepath="$PROJECT_DIR$/.idea/modules/CotizacionDolar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CotizacionDolar.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CotizacionDolar.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CotizacionDolar.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CotizacionDolar.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CotizacionDolar.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CotizacionDolar.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CotizacionDolar.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CotizacionDolar.app.unitTest.iml" />
     </modules>
   </component>
 </project>

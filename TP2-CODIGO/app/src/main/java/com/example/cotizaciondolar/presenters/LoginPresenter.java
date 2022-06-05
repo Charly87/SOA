@@ -1,27 +1,50 @@
 package com.example.cotizaciondolar.presenters;
+
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 
-import com.example.cotizaciondolar.LoginActivityContract;
+import com.example.cotizaciondolar.contracts.LoginContract;
+import com.example.cotizaciondolar.models.LoginModel;
+import com.example.cotizaciondolar.models.entities.LoginRequest;
+import com.example.cotizaciondolar.views.MainActivity;
+import com.example.cotizaciondolar.views.SignUpActivity;
 
-public class LoginPresenter implements LoginActivityContract.Presenter {
+public class LoginPresenter implements
+        LoginContract.Presenter,
+        LoginContract.Model.OnFinishedListener {
 
-    private LoginActivityContract.View view;
-    private LoginActivityContract.Model model;
+    private final LoginContract.View view;
+    private final LoginContract.Model model;
 
-    public LoginPresenter(LoginActivityContract.View mainView, LoginActivityContract.Model model){
+    public LoginPresenter(LoginContract.View mainView) {
         this.view = mainView;
-        this.model = model;
-
-        this.Initialize();
+        this.model = new LoginModel((Activity) mainView);
     }
 
-    private void Initialize()
-    {
-        Intent intent=((Activity) this.view).getIntent();
-        Bundle extras=intent.getExtras();
-        String texto= extras.getString("text");
-        this.view.setText(texto);
+    @Override
+    public void onLoginButtonClicked() {
+        String email = this.view.getUsername();
+        String password = this.view.getPassword();
+
+        LoginRequest request = new LoginRequest(email, password);
+
+        this.model.loginUser(request, this);
+    }
+
+    @Override
+    public void onSignUpButtonClicked() {
+        Intent intent = new Intent((Activity) this.view, SignUpActivity.class);
+        ((Activity) this.view).startActivity(intent);
+    }
+
+    @Override
+    public void onSuccess() {
+        Intent intent = new Intent((Activity) this.view, MainActivity.class);
+        ((Activity) this.view).startActivity(intent);
+    }
+
+    @Override
+    public void onError(String msg) {
+        this.view.showLongToast("Error al iniciar sesión: " + msg);
     }
 }

@@ -1,83 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="4" />
+  </component>
   <component name="AndroidLayouts">
     <shared>
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52e8a8de-fb6f-4aac-acf7-037a35542731" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2022_21_47__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_28_5_2022_21_47__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Version2/app/src/main/java/com/example/cotizaciondolar/contracts/LoginActivityContract.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Version2/app/src/main/java/com/example/cotizaciondolar/contracts/LoginActivityContract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Version2/app/src/main/java/com/example/cotizaciondolar/presenters/LoginPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Version2/app/src/main/java/com/example/cotizaciondolar/presenters/LoginPresenter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Version2/app/src/main/java/com/example/cotizaciondolar/views/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Version2/app/src/main/java/com/example/cotizaciondolar/views/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Version2/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Version2/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-    </list>
+    <list default="true" id="25c6ce89-a6d9-4f5c-9f13-b4d5ce35e929" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\Carlos\.android\avd\Pixel_2_API_30.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/guidodelbo/.android/avd/Pixel_3a_API_32_arm64-v8a.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="CotizacionDolar" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="29o7MQdx3CeQ7CkgmbUdPTZhzI6" />
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="29wov5OSDHWTsGUmB6sxskwmmC4" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DEBUGGABLE_DEVICE" value="Pixel_3a_API_32_arm64-v8a [emulator-5554]" />
+    <property name="DEBUGGABLE_PROCESS" value="com.example.cotizaciondolar" />
+    <property name="DEBUGGER_ID" value="Auto" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Version2" />
-    <property name="project.structure.last.edited" value="SDK Location" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-  </component>
-  <component name="PsdUISettings">
-    <option name="MODULE_TAB" value="Default Config" />
-    <option name="LAST_EDITED_BUILD_TYPE" value="release" />
-  </component>
-  <component name="Push.Settings">
-    <force-push-targets>
-      <force-push-target remote-path="origin" branch="main" />
-    </force-push-targets>
+    <property name="settings.editor.selected.configurable" value="settings.saveactions" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Repositorios\Facu\SOA\TP2-CODIGO\app\src\main\res\layout" />
-    </key>
-    <key name="android.template.-523094303">
-      <recent name="com.example.cotizaciondolar" />
-    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.cotizaciondolar.models" />
       <recent name="com.example.cotizaciondolar.presenters" />
-      <recent name="com.example.cotizaciondolar" />
+      <recent name="com.example.cotizaciondolar.contracts" />
     </key>
   </component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
-      <module name="cotizaciondolar.app" />
+      <module name="CotizacionDolar.app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />
@@ -133,15 +155,28 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Version2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Version2" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="52e8a8de-fb6f-4aac-acf7-037a35542731" name="Changes" comment="" />
-      <created>1653767536162</created>
+      <changelist id="25c6ce89-a6d9-4f5c-9f13-b4d5ce35e929" name="Changes" comment="" />
+      <created>1654033735797</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1653767536162</updated>
+      <updated>1654033735797</updated>
     </task>
     <servers />
   </component>
