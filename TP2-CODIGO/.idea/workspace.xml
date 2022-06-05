@@ -52,6 +52,9 @@
       </list>
     </option>
   </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="BUILD_TARGET_KEY" value="apk" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -75,6 +78,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ApkExportedModule" value="CotizacionDolar.app" />
     <property name="DEBUGGABLE_DEVICE" value="Pixel_3a_API_32_arm64-v8a [emulator-5554]" />
     <property name="DEBUGGABLE_PROCESS" value="com.example.cotizaciondolar" />
     <property name="DEBUGGER_ID" value="Auto" />

@@ -22,7 +22,7 @@ public class SignUpRequest {
             String password,
             int commission,
             int group) {
-        this.environment = "TEST";
+        this.environment = "PROD";
         this.name = name;
         this.lastName = lastName;
         this.dni = dni;

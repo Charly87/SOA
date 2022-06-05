@@ -10,7 +10,7 @@ public class EventRequest {
     private final String description;
 
     public EventRequest(String eventType, String description) {
-        this.environment = "TEST";
+        this.environment = "PROD";
         this.eventType = eventType;
         this.description = description;
     }
