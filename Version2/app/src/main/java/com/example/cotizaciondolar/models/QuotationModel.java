@@ -68,7 +68,6 @@ public class QuotationModel implements QuotationContract.Model {
         call.enqueue(new Callback<QuotationResponse>() {
             @Override
             public void onResponse(@NonNull Call<QuotationResponse> call, @NonNull Response<QuotationResponse> response) {
-                // TODO: convertir fecha a GMT-3
                 QuotationResponse quotationResponse = response.body();
 
                 EventRequest eventRequest = new EventRequest(

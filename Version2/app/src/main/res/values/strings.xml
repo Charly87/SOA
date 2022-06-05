@@ -35,7 +35,9 @@
     <string name="signup_button_text">Registrarse</string>
     <string name="login_button_text">Iniciar sesión</string>
     <string name="login_user_hint">Usuario</string>
-    <string name="quotation_purchase_label">VALOR COMPRA:</string>
-    <string name="quotation_sale_label">VALOR VENTA:</string>
+    <string name="quotation_purchase_label">COMPRA:</string>
+    <string name="quotation_sale_label">VENTA:</string>
     <string name="quotation_date_label">FECHA Y HORA:</string>
+
+    <string name="quotation_price_text">$%1$s</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.cotizaciondolar.views;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -30,12 +31,15 @@ public class QuotationFragment extends Fragment implements
     private TextView saleText;
     private FragmentQuotationBinding binding;
     private QuotationContract.Presenter presenter;
+    private Resources res;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentQuotationBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        res = getResources();
 
         presenter = new QuotationPresenter(this, getContext());
 
@@ -89,12 +93,14 @@ public class QuotationFragment extends Fragment implements
 
     @Override
     public void setPurchaseText(final String purchase) {
-        purchaseText.setText(purchase);
+        String purchasePriceText = String.format(res.getString(R.string.quotation_price_text), purchase);
+        purchaseText.setText(purchasePriceText);
     }
 
     @Override
     public void setSaleText(String sale) {
-        saleText.setText(sale);
+        String salePriceText = String.format(res.getString(R.string.quotation_price_text), sale);
+        saleText.setText(salePriceText);
     }
 
     @Override

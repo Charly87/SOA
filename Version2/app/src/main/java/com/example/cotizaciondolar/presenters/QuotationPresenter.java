@@ -13,6 +13,9 @@ import com.example.cotizaciondolar.contracts.QuotationContract;
 import com.example.cotizaciondolar.models.QuotationModel;
 import com.example.cotizaciondolar.models.entities.QuotationResponse;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class QuotationPresenter implements
         QuotationContract.Presenter,
         QuotationContract.Model.OnFinishedListener,
@@ -85,7 +88,7 @@ public class QuotationPresenter implements
                     view.setCheckedButton(BLUE_BUTTON_ID);
                     recentlyMoved = true;
                 }
-                
+
                 model.registerSensorEvent(toTheRight);
                 break;
             case BLUE_BUTTON_ID:
@@ -113,9 +116,21 @@ public class QuotationPresenter implements
 
     @Override
     public void onFinished(QuotationResponse quotationResponse) {
-        view.setDateText(quotationResponse.getDate());
-        view.setPurchaseText(quotationResponse.getPurchasePrice());
-        view.setSaleText(quotationResponse.getSalePrice());
+        String dateString = quotationResponse.getDate();
+        String purchaseText = quotationResponse.getPurchasePrice();
+        String saleText = quotationResponse.getSalePrice();
+
+        // Convierte la fecha y hora a la local de Argentina (GMT-3) y ajusta el formato
+        DateTimeFormatter formatterGmt = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime dateTimeGmt = LocalDateTime.parse(dateString, formatterGmt);
+        LocalDateTime dateTimeArg = dateTimeGmt.minusHours(3);
+        DateTimeFormatter formatterArg = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss");
+
+        String dateText = dateTimeArg.format(formatterArg);
+
+        view.setDateText(dateText);
+        view.setPurchaseText(purchaseText);
+        view.setSaleText(saleText);
     }
 
     @Override
