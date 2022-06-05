@@ -39,15 +39,15 @@ public class QuotationModel implements QuotationContract.Model {
         switch (checkedId) {
             case BLUE_BUTTON_ID:
                 call = apiService.getBlueQuotation();
-                quotationType = "BLUE DOLLAR";
+                quotationType = "blue";
                 break;
             case STOCK_BUTTON_ID:
                 call = apiService.getStockQuotation();
-                quotationType = "STOCK DOLLAR";
+                quotationType = "bolsa";
                 break;
             default:
                 call = apiService.getOfficialQuotation();
-                quotationType = "OFFICIAL DOLLAR";
+                quotationType = "oficial";
                 break;
         }
 
@@ -59,7 +59,7 @@ public class QuotationModel implements QuotationContract.Model {
 
                 EventRequest eventRequest = new EventRequest(
                         QUOTATION_DATA_RETRIEVED,
-                        "Quotation data retrieved for " + quotationType
+                        "Cotizacion obtenida para dólar " + quotationType
                 );
 
                 eventService = new EventService(context);

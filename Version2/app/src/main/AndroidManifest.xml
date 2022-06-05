@@ -25,6 +25,13 @@
         <activity
             android:name=".views.CodeActivity"
             android:exported="true">
+
+        </activity>
+        <!-- Menu -->
+        <activity
+            android:name=".views.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.CotizacionDolar.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,11 +39,6 @@
             </intent-filter>
 
         </activity>
-        <!-- Menu -->
-        <activity
-            android:name=".views.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.CotizacionDolar.NoActionBar"></activity>
         <!-- Login -->
         <activity
             android:name=".views.LoginActivity"

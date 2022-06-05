@@ -21,7 +21,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class EventService extends AsyncTask<EventRequest, Void, Void> {
-    private static final int TOKEN_MAX_DURATION_IN_MINUTES = 1;
+    private static final int TOKEN_MAX_DURATION_IN_MINUTES = 30;
 
     private final String TAG = "EventService";
     private final SoaApi apiService;

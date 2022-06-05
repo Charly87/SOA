@@ -30,6 +30,8 @@ public class CodePresenter implements CodeContract.Presenter {
         TelephonyManager telephonyManager = (TelephonyManager) ((Activity) this.mainView)
                 .getSystemService(Context.TELEPHONY_SERVICE);
 
+        // Cons esta línea la primera vez la app solicita permisos para leer SMS,
+        // enviar SMS, acceder al numero, etc
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) !=
                 PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_NUMBERS) !=
