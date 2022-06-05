@@ -12,7 +12,6 @@ import java.util.Random;
 
 public class CodeModel implements CodeContract.Model {
     private final Context context;
-    private EventService eventService;
     private String activeCode;
 
     public CodeModel(Context context) {
@@ -33,11 +32,11 @@ public class CodeModel implements CodeContract.Model {
 
         // Genera un evento de SMS enviado
         EventRequest smsEvent = new EventRequest(
-                SMS_SENT,
+                SMS_SENT.tag,
                 "Código doble factor enviado por SMS"
         );
 
-        eventService = new EventService(context);
+        EventService eventService = new EventService(context);
         eventService.execute(smsEvent);
 
         return this.activeCode;

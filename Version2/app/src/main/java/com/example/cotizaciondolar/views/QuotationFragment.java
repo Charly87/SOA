@@ -23,7 +23,6 @@ import com.google.android.material.button.MaterialButtonToggleGroup;
 
 public class QuotationFragment extends Fragment implements
         QuotationContract.View {
-    private static final String TAG = "QuotationFragment";
 
     private MaterialButtonToggleGroup buttonToggleGroup;
     private TextView dateText;
@@ -45,13 +44,20 @@ public class QuotationFragment extends Fragment implements
         purchaseText = binding.textPurchase;
         saleText = binding.textSale;
 
-        SensorManager manager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-        Sensor accelerometer = manager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
-        manager.registerListener((SensorEventListener) presenter, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-
+        setSensorManager();
         setListeners();
 
         return root;
+    }
+
+    private void setSensorManager() {
+        SensorManager manager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        Sensor accelerometer = manager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
+        manager.registerListener(
+                (SensorEventListener) presenter,
+                accelerometer,
+                SensorManager.SENSOR_DELAY_NORMAL
+        );
     }
 
     private void setListeners() {

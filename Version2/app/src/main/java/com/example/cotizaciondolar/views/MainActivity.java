@@ -1,5 +1,10 @@
 package com.example.cotizaciondolar.views;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.hardware.Sensor;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,13 +21,17 @@ import com.example.cotizaciondolar.R;
 import com.example.cotizaciondolar.contracts.MainContract;
 import com.example.cotizaciondolar.databinding.ActivityMainBinding;
 import com.example.cotizaciondolar.presenters.MainPresenter;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
     public static final int OFFICIAL_BUTTON_ID = R.id.btn_official;
     public static final int BLUE_BUTTON_ID = R.id.btn_blue;
     public static final int STOCK_BUTTON_ID = R.id.btn_stock;
+    private static final int LOGOUT_BUTTON_ID = R.id.action_logout;
     private AppBarConfiguration mAppBarConfiguration;
+    private SensorManager manager;
+    private Sensor proximitySensor;
 
     MainContract.Presenter presenter;
 
@@ -54,6 +63,23 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         NavigationUI.setupWithNavController(navigationView, navController);
 
         presenter = new MainPresenter(this, getApplicationContext());
+
+        setSensorManager();
+
+    }
+
+    private void setSensorManager() {
+        manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        proximitySensor = manager.getSensorList(Sensor.TYPE_PROXIMITY).get(0);
+        registerSensorListener();
+    }
+
+    private void registerSensorListener() {
+        manager.registerListener(
+                (SensorEventListener) presenter,
+                proximitySensor,
+                SensorManager.SENSOR_DELAY_NORMAL
+        );
     }
 
     @Override
@@ -80,11 +106,30 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_logout:
-                presenter.onLogoutClick();
+            case LOGOUT_BUTTON_ID:
+                showLogoutDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void showLogoutDialog() {
+        manager.unregisterListener((SensorEventListener) presenter);
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("¿Desea cerrar sesión?")
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        registerSensorListener();
+                    }
+                })
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.onLogoutClick();
+                    }
+                })
+                .show();
     }
 }

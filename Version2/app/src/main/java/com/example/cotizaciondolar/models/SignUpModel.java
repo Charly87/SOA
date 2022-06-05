@@ -51,7 +51,7 @@ public class SignUpModel implements SignUpContract.Model {
 
                         // Genera un evento de usuario registrado
                         EventRequest signedUpEvent = new EventRequest(
-                                USER_SIGNED_UP,
+                                USER_SIGNED_UP.tag,
                                 "Registro e inicio de sesión del usuario " + signUpRequest.getEmail()
                         );
 

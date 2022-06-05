@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
+import android.text.TextUtils;
+import android.util.Patterns;
 
 import com.example.cotizaciondolar.contracts.SignUpContract;
 import com.example.cotizaciondolar.models.SignUpModel;
@@ -61,23 +63,19 @@ public class SignUpPresenter implements
             Editable password,
             Editable commission,
             Editable group) {
-        if (name == null ||
-                lastName == null ||
-                dni == null ||
-                email == null ||
-                password == null ||
-                commission == null ||
-                group == null) {
+
+        // Valida que no sean texto vacío ni nulo
+        if (TextUtils.isEmpty(name) ||
+                TextUtils.isEmpty(lastName) ||
+                TextUtils.isEmpty(dni) ||
+                TextUtils.isEmpty(email) ||
+                TextUtils.isEmpty(password) ||
+                TextUtils.isEmpty(commission) ||
+                TextUtils.isEmpty(group)) {
             return null;
-        } else if (name.toString().isEmpty() ||
-                lastName.toString().isEmpty() ||
-                dni.toString().isEmpty() ||
-                email.toString().isEmpty() ||
-                password.toString().isEmpty() ||
-                commission.toString().isEmpty() ||
-                group.toString().isEmpty()) {
-            return null;
-        } else if (password.toString().length() < 8 || !commission.toString().equals("1900")) {
+        } else if (password.length() < 8 ||
+                !commission.toString().equals("1900") ||
+                !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             return null;
         }
 

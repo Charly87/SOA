@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="Usuario">
+            android:hint="@string/login_user_hint">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/userEditText"
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="Contraseña">
+            android:hint="@string/hint_password">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passEditText"
@@ -67,14 +67,14 @@
             android:layout_margin="10dp"
             android:layout_width="150dp"
             android:layout_height="60dp"
-            android:text="Registrarse" />
+            android:text="@string/signup_button_text" />
 
         <Button
             android:id="@+id/btnConfirm"
             android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:text="Iniciar sesión" />
+            android:text="@string/login_button_text" />
 
     </LinearLayout>
 

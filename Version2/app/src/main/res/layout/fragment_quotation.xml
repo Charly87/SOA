@@ -61,7 +61,7 @@
                 android:textSize="20sp"
                 android:layout_marginEnd="10dp"
                 android:textStyle="bold"
-                android:text="FECHA Y HORA:" />
+                android:text="@string/quotation_date_label" />
 
             <TextView
                 android:id="@+id/text_date"
@@ -83,7 +83,7 @@
                 android:textSize="20sp"
                 android:layout_marginEnd="10dp"
                 android:textStyle="bold"
-                android:text="VALOR VENTA: " />
+                android:text="@string/quotation_sale_label" />
 
             <TextView
                 android:id="@+id/text_sale"
@@ -105,7 +105,7 @@
                 android:textSize="20sp"
                 android:layout_marginEnd="10dp"
                 android:textStyle="bold"
-                android:text="VALOR COMPRA: " />
+                android:text="@string/quotation_purchase_label" />
 
             <TextView
                 android:id="@+id/text_purchase"

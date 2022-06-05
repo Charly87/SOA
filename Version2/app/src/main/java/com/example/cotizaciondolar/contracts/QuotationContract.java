@@ -26,6 +26,8 @@ public interface QuotationContract {
 
     interface Model {
 
+        void registerSensorEvent(boolean toTheRight);
+
         interface OnFinishedListener {
             void onFinished(QuotationResponse quotationResponse);
 

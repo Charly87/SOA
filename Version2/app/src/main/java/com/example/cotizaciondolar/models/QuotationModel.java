@@ -1,6 +1,7 @@
 package com.example.cotizaciondolar.models;
 
 import static com.example.cotizaciondolar.models.entities.EventType.QUOTATION_DATA_RETRIEVED;
+import static com.example.cotizaciondolar.models.entities.EventType.SENSOR_ACCELEROMETER;
 import static com.example.cotizaciondolar.views.MainActivity.BLUE_BUTTON_ID;
 import static com.example.cotizaciondolar.views.MainActivity.STOCK_BUTTON_ID;
 
@@ -31,6 +32,19 @@ public class QuotationModel implements QuotationContract.Model {
     }
 
     @Override
+    public void registerSensorEvent(boolean toTheRight) {
+        String direction = toTheRight ? "derecha" : "izquierda";
+
+        EventRequest eventRequest = new EventRequest(
+                SENSOR_ACCELEROMETER.tag,
+                "Se detectó un movimiento hacia la " + direction
+        );
+
+        eventService = new EventService(context);
+        eventService.execute(eventRequest);
+    }
+
+    @Override
     public void getQuotationData(OnFinishedListener onFinishedListener, int checkedId) {
         DollarApi apiService = DollarApiClient.getClient().create(DollarApi.class);
         String quotationType;
@@ -58,7 +72,7 @@ public class QuotationModel implements QuotationContract.Model {
                 QuotationResponse quotationResponse = response.body();
 
                 EventRequest eventRequest = new EventRequest(
-                        QUOTATION_DATA_RETRIEVED,
+                        QUOTATION_DATA_RETRIEVED.tag,
                         "Cotizacion obtenida para dólar " + quotationType
                 );
 

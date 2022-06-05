@@ -50,7 +50,7 @@ public class LoginModel implements LoginContract.Model {
 
                         // Genera un evento de usuario logueado
                         EventRequest eventRequest = new EventRequest(
-                                USER_LOGGED_IN,
+                                USER_LOGGED_IN.tag,
                                 "Usuario inició sesión: " + loginRequest.getEmail()
                         );
 

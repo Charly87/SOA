@@ -85,7 +85,8 @@ public class QuotationPresenter implements
                     view.setCheckedButton(BLUE_BUTTON_ID);
                     recentlyMoved = true;
                 }
-
+                
+                model.registerSensorEvent(toTheRight);
                 break;
             case BLUE_BUTTON_ID:
                 if (toTheRight) {
@@ -95,6 +96,7 @@ public class QuotationPresenter implements
                 }
 
                 recentlyMoved = true;
+                model.registerSensorEvent(toTheRight);
                 break;
             case STOCK_BUTTON_ID:
                 if (!toTheRight) {
@@ -102,6 +104,7 @@ public class QuotationPresenter implements
                     recentlyMoved = true;
                 }
 
+                model.registerSensorEvent(toTheRight);
                 break;
             default:
                 break;
