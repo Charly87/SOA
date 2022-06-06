@@ -196,4 +196,21 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/cotizaciondolar/presenters/LoginPresenter.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Remote">
+        <watch expression="response.isSuccessful()" language="JAVA" />
+        <watch expression="response.code()" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
 </project>

@@ -16,7 +16,7 @@ public interface LoginContract {
         interface OnFinishedListener {
             void onSuccess();
 
-            void onError(String msg);
+            void onError();
         }
 
         void loginUser(LoginRequest loginRequest, OnFinishedListener onFinishedListener);

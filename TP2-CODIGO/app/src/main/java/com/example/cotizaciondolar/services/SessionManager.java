@@ -62,7 +62,7 @@ public class SessionManager {
     }
 
 
-    public boolean checkLogin() {
+    public boolean isUserLoggedIn() {
         return sharedPreferences.getBoolean(IS_LOGGED_IN, false);
     }
 

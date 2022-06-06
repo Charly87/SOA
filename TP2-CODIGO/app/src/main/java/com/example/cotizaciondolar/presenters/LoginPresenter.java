@@ -44,7 +44,7 @@ public class LoginPresenter implements
     }
 
     @Override
-    public void onError(String msg) {
-        this.view.showLongToast("Error al iniciar sesión: " + msg);
+    public void onError() {
+        this.view.showLongToast("Usuario o contraseña incorrectos");
     }
 }

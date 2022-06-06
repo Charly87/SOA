@@ -7,7 +7,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.cotizaciondolar.models.entities.Event;
 import com.example.cotizaciondolar.models.entities.EventRequest;
 import com.example.cotizaciondolar.models.entities.EventResponse;
 import com.example.cotizaciondolar.models.entities.LoginResponse;
@@ -35,31 +34,43 @@ public class EventService extends AsyncTask<EventRequest, Void, Void> {
 
     @Override
     protected Void doInBackground(EventRequest... eventRequests) {
-        HashMap<String, String> userDetails = sessionManager.getUserDetails();
+        EventRequest eventRequest = eventRequests[0];
 
-        String token = userDetails.get(TOKEN);
-        String stringDateTime = userDetails.get(TOKEN_CREATED_DATE);
-        ZonedDateTime dateTime = ZonedDateTime.parse(stringDateTime);
+        if (sessionManager.isUserLoggedIn()) {
+            HashMap<String, String> userDetails = sessionManager.getUserDetails();
 
-        Duration dateTimeDifference = Duration.between(dateTime, ZonedDateTime.now(ZoneId.of("UTC-3")));
+            String token = userDetails.get(TOKEN);
+            String stringDateTime = userDetails.get(TOKEN_CREATED_DATE);
+            ZonedDateTime dateTime = ZonedDateTime.parse(stringDateTime);
 
-        if (dateTimeDifference.compareTo(Duration.ofMinutes(TOKEN_MAX_DURATION_IN_MINUTES)) > 0) {
-            String refreshToken = userDetails.get(SessionManager.TOKEN_REFRESH);
-            String username = userDetails.get(SessionManager.USER_EMAIL);
+            Duration dateTimeDifference = Duration.between(dateTime, ZonedDateTime.now(ZoneId.of("UTC-3")));
 
-            regenerateToken(refreshToken, username);
+            // Verificamos que el token sea valido, de lo contrario solicitamos uno nuevo
+            if (dateTimeDifference.compareTo(Duration.ofMinutes(TOKEN_MAX_DURATION_IN_MINUTES)) > 0) {
+                String refreshToken = userDetails.get(SessionManager.TOKEN_REFRESH);
+                String username = userDetails.get(SessionManager.USER_EMAIL);
+
+                regenerateToken(refreshToken, username);
+            }
+
+            Call<EventResponse> call = apiService.postEvent("Bearer " + token, eventRequest);
+
+            try {
+                Response<EventResponse> response = call.execute();
+                EventResponse eventResponse = response.body();
+                if (eventResponse != null && eventResponse.isSuccess()) {
+                    Log.d(TAG, "Evento " + eventRequest.getEventType() +
+                            " registrado: " + eventRequest.getDescription()
+                    );
+                } else {
+                    Log.e(TAG, "Error registrando evento " + eventRequest.getEventType());
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Error registrando evento: " + e.getMessage());
+            }
+
         }
-
-        Call<EventResponse> call = apiService.postEvent("Bearer " + token, eventRequests[0]);
-
-        try {
-            Response<EventResponse> response = call.execute();
-            Event event = response.body().getEvent();
-            Log.d(TAG, "Evento " + event.getEventType().name() + " registrado: " + event.getDescription());
-        } catch (Exception e) {
-            Log.e(TAG, "Error registrando evento: " + e.getMessage());
-        }
-
+        
         return null;
     }
 

@@ -15,4 +15,15 @@ public class EventRequest {
         this.description = description;
     }
 
+    public String getEnvironment() {
+        return environment;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

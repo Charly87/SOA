@@ -1,21 +1,18 @@
 package com.example.cotizaciondolar.models;
 
-import static com.example.cotizaciondolar.models.entities.EventType.SMS_SENT;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.cotizaciondolar.contracts.CodeContract;
-import com.example.cotizaciondolar.models.entities.EventRequest;
-import com.example.cotizaciondolar.services.EventService;
 
 import java.util.Random;
 
 public class CodeModel implements CodeContract.Model {
-    private final Context context;
+    private static final String TAG = "CodeModel";
     private String activeCode;
 
     public CodeModel(Context context) {
-        this.context = context;
         this.generateNewCode();
     }
 
@@ -30,14 +27,7 @@ public class CodeModel implements CodeContract.Model {
         int code = random.nextInt(10000);
         this.activeCode = String.format("%04d", code);
 
-        // Genera un evento de SMS enviado
-        EventRequest smsEvent = new EventRequest(
-                SMS_SENT.tag,
-                "Código doble factor enviado por SMS"
-        );
-
-        EventService eventService = new EventService(context);
-        eventService.execute(smsEvent);
+        Log.d(TAG, "Codigo de doble factor SMS generado: " + activeCode);
 
         return this.activeCode;
     }

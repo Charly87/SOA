@@ -38,9 +38,12 @@ public class LoginModel implements LoginContract.Model {
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                LoginResponse loginResponse = response.body();
-                if (response.isSuccessful() && loginResponse != null) {
-                    if (loginResponse.isSuccess()) {
+                int responseCode = response.code();
+
+                if (responseCode == 200) {
+                    LoginResponse loginResponse = response.body();
+
+                    if (loginResponse != null) {
                         // Guarda los datos de sesion del usuario
                         sessionManager.createLoginSession(
                                 loginRequest.getEmail(),
@@ -62,24 +65,16 @@ public class LoginModel implements LoginContract.Model {
 
                         onFinishedListener.onSuccess();
                     } else {
-                        onFinishedListener.onError(loginResponse.getMessage());
+                        onFinishedListener.onError();
                     }
                 } else {
-                    String error;
-
-                    if (loginResponse != null) {
-                        error = loginResponse.getMessage();
-                    } else {
-                        error = response.body().getMessage();
-                    }
-
-                    onFinishedListener.onError(error);
+                    onFinishedListener.onError();
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-                onFinishedListener.onError(t.getMessage());
+                onFinishedListener.onError();
             }
         });
     }
