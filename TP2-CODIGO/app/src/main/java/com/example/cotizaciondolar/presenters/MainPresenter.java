@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 
 import com.example.cotizaciondolar.contracts.MainContract;
 import com.example.cotizaciondolar.models.MainModel;
@@ -17,10 +18,17 @@ public class MainPresenter implements
 
     private final MainContract.View view;
     private final MainContract.Model model;
+    private final SensorManager manager;
+    private final Sensor proximitySensor;
+
 
     public MainPresenter(MainContract.View view, Context context) {
         this.view = view;
         this.model = new MainModel(context);
+        
+        manager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        proximitySensor = manager.getSensorList(Sensor.TYPE_PROXIMITY).get(0);
+        registerSensorListener();
     }
 
     @Override
@@ -43,5 +51,19 @@ public class MainPresenter implements
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // No realizamos accion al cambiar la accuracy
+    }
+
+    @Override
+    public void registerSensorListener() {
+        manager.registerListener(
+                this,
+                proximitySensor,
+                SensorManager.SENSOR_DELAY_NORMAL
+        );
+    }
+
+    @Override
+    public void unregisterSensorListener() {
+        manager.unregisterListener(this);
     }
 }

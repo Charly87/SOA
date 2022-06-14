@@ -201,15 +201,20 @@
       <breakpoints>
         <line-breakpoint suspend="THREAD" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/cotizaciondolar/presenters/LoginPresenter.java</url>
-          <line>47</line>
+          <line>56</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/cotizaciondolar/models/SignUpModel.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
-      <configuration name="Remote">
-        <watch expression="response.isSuccessful()" language="JAVA" />
-        <watch expression="response.code()" language="JAVA" />
+      <configuration name="app">
+        <watch expression="responseBody.string()" language="JAVA" />
+        <watch expression="new JSONObject(responseBody.toString())" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>

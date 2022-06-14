@@ -11,7 +11,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 
 public interface SoaApi {
     @POST("register")
@@ -19,9 +18,6 @@ public interface SoaApi {
 
     @POST("login")
     Call<LoginResponse> postLogin(@Body LoginRequest request);
-
-    @PUT("refresh")
-    Call<LoginResponse> putRefreshToken(@Header("Authorization") String tokenRefresh);
 
     @POST("event")
     Call<EventResponse> postEvent(@Header("Authorization") String token, @Body EventRequest request);

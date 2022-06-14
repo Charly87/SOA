@@ -12,6 +12,7 @@ import com.example.cotizaciondolar.R;
 import com.example.cotizaciondolar.contracts.SignUpContract;
 import com.example.cotizaciondolar.presenters.SignUpPresenter;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class SignUpActivity extends AppCompatActivity implements SignUpContract.View {
 
@@ -23,6 +24,10 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
     TextInputEditText passwordEditText;
     TextInputEditText comissionEditText;
     TextInputEditText groupEditText;
+
+    TextInputLayout commissionInput;
+    TextInputLayout passwordInput;
+    TextInputLayout emailInput;
 
     Button cancelButton;
     Button confirmButton;
@@ -43,10 +48,14 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
         dniEditText = this.findViewById(R.id.dniEditText);
         emailEditText = this.findViewById(R.id.emailEditText);
         passwordEditText = this.findViewById(R.id.passwordEditText);
-        comissionEditText = this.findViewById(R.id.comissionEditText);
+        comissionEditText = this.findViewById(R.id.commissionEditText);
         groupEditText = this.findViewById(R.id.groupEditText);
         cancelButton = this.findViewById(R.id.cancelButton);
         confirmButton = this.findViewById(R.id.confirmButton);
+
+        commissionInput = this.findViewById(R.id.commissionInput);
+        passwordInput = this.findViewById(R.id.passwordInput);
+        emailInput = this.findViewById(R.id.emailInput);
 
         presenter = new SignUpPresenter(this, getApplicationContext());
 
@@ -64,6 +73,22 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
             }
         });
     }
+
+    @Override
+    public void setPasswordError(String error) {
+        passwordInput.setError(error);
+    }
+
+    @Override
+    public void setCommissionError(String error) {
+        commissionInput.setError(error);
+    }
+
+    @Override
+    public void setEmailError(String error) {
+        emailInput.setError(error);
+    }
+
 
     @Override
     public void showShortToast(String msg) {
@@ -104,6 +129,4 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
     public Editable getGroup() {
         return groupEditText.getText();
     }
-
-
 }

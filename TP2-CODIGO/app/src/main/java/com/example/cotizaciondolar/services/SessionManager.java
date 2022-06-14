@@ -51,17 +51,7 @@ public class SessionManager {
 
         return userDetails;
     }
-
-    public void refreshToken(String token, String tokenRefresh) {
-        ZonedDateTime dateTime = ZonedDateTime.now(ZoneId.of("UTC-3"));
-        editor.putString(TOKEN, token);
-        editor.putString(TOKEN_REFRESH, tokenRefresh);
-        editor.putString(TOKEN_CREATED_DATE, dateTime.toString());
-
-        editor.commit();
-    }
-
-
+    
     public boolean isUserLoggedIn() {
         return sharedPreferences.getBoolean(IS_LOGGED_IN, false);
     }

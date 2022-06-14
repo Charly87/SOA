@@ -13,7 +13,10 @@ public interface MainContract {
     }
 
     interface Presenter {
-
         void onLogoutClick();
+
+        void registerSensorListener();
+
+        void unregisterSensorListener();
     }
 }

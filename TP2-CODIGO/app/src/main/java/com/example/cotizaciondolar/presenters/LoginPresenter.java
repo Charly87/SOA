@@ -1,7 +1,10 @@
 package com.example.cotizaciondolar.presenters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.example.cotizaciondolar.contracts.LoginContract;
 import com.example.cotizaciondolar.models.LoginModel;
@@ -15,20 +18,26 @@ public class LoginPresenter implements
 
     private final LoginContract.View view;
     private final LoginContract.Model model;
+    private final Context context;
 
-    public LoginPresenter(LoginContract.View mainView) {
+    public LoginPresenter(LoginContract.View mainView, Context context) {
         this.view = mainView;
         this.model = new LoginModel((Activity) mainView);
+        this.context = context;
     }
 
     @Override
     public void onLoginButtonClicked() {
-        String email = this.view.getUsername();
-        String password = this.view.getPassword();
+        if (isConnected()) {
+            String email = this.view.getUsername();
+            String password = this.view.getPassword();
 
-        LoginRequest request = new LoginRequest(email, password);
+            LoginRequest request = new LoginRequest(email, password);
 
-        this.model.loginUser(request, this);
+            this.model.loginUser(request, this);
+        } else {
+            view.showLongToast("No hay conexión a internet");
+        }
     }
 
     @Override
@@ -46,5 +55,12 @@ public class LoginPresenter implements
     @Override
     public void onError() {
         this.view.showLongToast("Usuario o contraseña incorrectos");
+    }
+
+    private boolean isConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }
 }

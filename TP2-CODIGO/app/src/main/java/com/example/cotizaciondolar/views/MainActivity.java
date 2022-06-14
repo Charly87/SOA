@@ -1,10 +1,6 @@
 package com.example.cotizaciondolar.views;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.hardware.Sensor;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,13 +21,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
+
     public static final int OFFICIAL_BUTTON_ID = R.id.btn_official;
     public static final int BLUE_BUTTON_ID = R.id.btn_blue;
     public static final int STOCK_BUTTON_ID = R.id.btn_stock;
     private static final int LOGOUT_BUTTON_ID = R.id.action_logout;
+
     private AppBarConfiguration mAppBarConfiguration;
-    private SensorManager manager;
-    private Sensor proximitySensor;
 
     MainContract.Presenter presenter;
 
@@ -46,8 +42,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_history, R.id.nav_quotation)
                 .setOpenableLayout(drawer)
@@ -63,28 +57,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         NavigationUI.setupWithNavController(navigationView, navController);
 
         presenter = new MainPresenter(this, getApplicationContext());
-
-        setSensorManager();
-
     }
 
-    private void setSensorManager() {
-        manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        proximitySensor = manager.getSensorList(Sensor.TYPE_PROXIMITY).get(0);
-        registerSensorListener();
-    }
-
-    private void registerSensorListener() {
-        manager.registerListener(
-                (SensorEventListener) presenter,
-                proximitySensor,
-                SensorManager.SENSOR_DELAY_NORMAL
-        );
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -115,13 +92,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     public void showLogoutDialog() {
-        manager.unregisterListener((SensorEventListener) presenter);
+        presenter.unregisterSensorListener();
+
         new MaterialAlertDialogBuilder(this)
                 .setTitle("¿Desea cerrar sesión?")
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        registerSensorListener();
+                        presenter.registerSensorListener();
                     }
                 })
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {

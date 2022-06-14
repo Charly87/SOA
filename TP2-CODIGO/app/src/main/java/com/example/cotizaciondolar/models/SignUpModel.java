@@ -66,15 +66,7 @@ public class SignUpModel implements SignUpContract.Model {
                         onFinishedListener.onError(signUpResponse.getMessage());
                     }
                 } else {
-                    String error;
-
-                    if (signUpResponse != null) {
-                        error = signUpResponse.getMessage();
-                    } else {
-                        error = response.body().getMessage();
-                    }
-
-                    onFinishedListener.onError(error);
+                    onFinishedListener.onError(response.message());
                 }
             }
 

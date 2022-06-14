@@ -1,11 +1,6 @@
 package com.example.cotizaciondolar.views;
 
-import android.content.Context;
 import android.content.res.Resources;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,13 +50,6 @@ public class QuotationFragment extends Fragment implements
     }
 
     private void setSensorManager() {
-        SensorManager manager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-        Sensor accelerometer = manager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
-        manager.registerListener(
-                (SensorEventListener) presenter,
-                accelerometer,
-                SensorManager.SENSOR_DELAY_NORMAL
-        );
     }
 
     private void setListeners() {
@@ -116,15 +104,5 @@ public class QuotationFragment extends Fragment implements
     @Override
     public void showLongToast(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        presenter.onSensorChanged(event);
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
     }
 }

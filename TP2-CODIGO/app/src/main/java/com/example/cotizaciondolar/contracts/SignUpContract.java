@@ -7,8 +7,13 @@ import com.example.cotizaciondolar.models.entities.SignUpRequest;
 public interface SignUpContract {
 
     interface View {
-
         void showShortToast(String msg);
+
+        void setPasswordError(String error);
+
+        void setCommissionError(String error);
+
+        void setEmailError(String error);
 
         Editable getName();
 
@@ -23,7 +28,6 @@ public interface SignUpContract {
         Editable getCommission();
 
         Editable getGroup();
-
     }
 
     interface Model {

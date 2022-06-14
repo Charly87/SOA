@@ -8,6 +8,9 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.example.cotizaciondolar.contracts.QuotationContract;
 import com.example.cotizaciondolar.models.QuotationModel;
@@ -22,17 +25,26 @@ public class QuotationPresenter implements
         SensorEventListener {
     private final QuotationContract.View view;
     private final QuotationContract.Model model;
+    private final Context context;
 
     private static final int Z_AXIS_THRESHOLD = 5;
-    private static final double ACCELEROMETER_THRESHOLD = 6;
     private boolean recentlyMoved;
     private float lastZValue;
 
     public QuotationPresenter(QuotationContract.View view, Context context) {
         this.view = view;
         this.model = new QuotationModel(context);
-        recentlyMoved = false;
-        lastZValue = 0;
+        this.context = context;
+        this.recentlyMoved = false;
+        this.lastZValue = 0;
+
+        SensorManager manager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        Sensor accelerometer = manager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0);
+        manager.registerListener(
+                this,
+                accelerometer,
+                SensorManager.SENSOR_DELAY_NORMAL
+        );
     }
 
     @Override
@@ -40,7 +52,12 @@ public class QuotationPresenter implements
         // Solo llama a la API cuando el boton que disparó el evento está presionado
         // ya que el evento se dispara al presionar y al dejar de estar presionado
         if (isChecked) {
-            model.getQuotationData(this, checkedId);
+            if (isConnected()) {
+
+                model.getQuotationData(this, checkedId);
+            } else {
+                view.showLongToast("No hay conexión a internet");
+            }
         }
     }
 
@@ -113,6 +130,14 @@ public class QuotationPresenter implements
                 break;
         }
     }
+
+    private boolean isConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
+    }
+
 
     @Override
     public void onFinished(QuotationResponse quotationResponse) {

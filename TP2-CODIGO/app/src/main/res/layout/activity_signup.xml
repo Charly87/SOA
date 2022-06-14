@@ -22,6 +22,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="@string/signup_hint_name">
 
@@ -37,6 +38,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="@string/signup_hint_last_name">
 
@@ -52,6 +54,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="@string/signup_hint_dni">
 
@@ -64,10 +67,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailInput"
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="@string/signup_hint_email">
 
@@ -80,10 +85,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordInput"
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:errorEnabled="true"
             app:endIconMode="password_toggle"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="@string/hint_password">
@@ -96,38 +103,50 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginHorizontal="20dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="@string/signup_hint_commission">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/comissionEditText"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
+            android:orientation="horizontal"
+            android:gravity="center"
             android:layout_marginTop="10dp"
             android:layout_marginHorizontal="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:hint="@string/signup_hint_group">
+            android:baselineAligned="false">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/groupEditText"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/commissionInput"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:errorEnabled="true"
+                android:layout_marginEnd="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="@string/signup_hint_commission">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/commissionEditText"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                app:errorEnabled="true"
+                android:layout_marginStart="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="@string/signup_hint_group">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/groupEditText"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

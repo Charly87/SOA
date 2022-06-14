@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         loginButton = this.findViewById(R.id.btnConfirm);
         signUpButton = this.findViewById(R.id.btnRegis);
 
-        presenter = new LoginPresenter(this);
+        presenter = new LoginPresenter(this, getApplicationContext());
 
         setListeners();
     }
